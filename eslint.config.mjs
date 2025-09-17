@@ -28,6 +28,9 @@ const eslintConfig = [
           caughtErrorsIgnorePattern: '^(_|ignore)',
         },
       ],
+      'react/display-name': 'off',
+      'react/no-unescaped-entities': 'off',
+      allowObjectTypes: 'on',
     },
   },
   {

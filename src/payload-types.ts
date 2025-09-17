@@ -63,37 +63,82 @@ export type SupportedTimezones =
 
 export interface Config {
   auth: {
+    customers: CustomerAuthOperations;
     users: UserAuthOperations;
   };
   blocks: {};
   collections: {
+    offers: Offer;
+    products: Product;
+    units: Unit;
+    customers: Customer;
     users: User;
-    media: Media;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
   collectionsJoins: {};
   collectionsSelect: {
+    offers: OffersSelect<false> | OffersSelect<true>;
+    products: ProductsSelect<false> | ProductsSelect<true>;
+    units: UnitsSelect<false> | UnitsSelect<true>;
+    customers: CustomersSelect<false> | CustomersSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
-    media: MediaSelect<false> | MediaSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
-    defaultIDType: string;
+    defaultIDType: number;
   };
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    home: Home;
+  };
+  globalsSelect: {
+    home: HomeSelect<false> | HomeSelect<true>;
+  };
   locale: null;
-  user: User & {
-    collection: 'users';
-  };
+  user:
+    | (Customer & {
+        collection: 'customers';
+      })
+    | (User & {
+        collection: 'users';
+      });
   jobs: {
     tasks: unknown;
     workflows: unknown;
   };
+}
+export interface CustomerAuthOperations {
+  forgotPassword:
+    | {
+        email: string;
+      }
+    | {
+        username: string;
+      };
+  login:
+    | {
+        email: string;
+        password: string;
+      }
+    | {
+        password: string;
+        username: string;
+      };
+  registerFirstUser: {
+    password: string;
+    username: string;
+    email?: string;
+  };
+  unlock:
+    | {
+        email: string;
+      }
+    | {
+        username: string;
+      };
 }
 export interface UserAuthOperations {
   forgotPassword: {
@@ -115,10 +160,96 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "offers".
+ */
+export interface Offer {
+  id: number;
+  ordersMaxDate: string;
+  distributionDate: string;
+  baskets?:
+    | {
+        title: string;
+        price: number;
+        items?:
+          | {
+              item?: (number | null) | Product;
+              unit: number | Unit;
+              quantity: number;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  singles?:
+    | {
+        item?: (number | null) | Product;
+        unit: number | Unit;
+        quantity: number;
+        price: number;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products".
+ */
+export interface Product {
+  id: number;
+  title: string;
+  defaultUnit?: (number | null) | Unit;
+  defaultQuantity?: number | null;
+  defaultPrice?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "units".
+ */
+export interface Unit {
+  id: number;
+  title: string;
+  title_plural: string;
+  value: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "customers".
+ */
+export interface Customer {
+  id: number;
+  full_name?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  email?: string | null;
+  username: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
+  password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
-  id: string;
+  id: number;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -139,43 +270,41 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: string;
-  alt: string;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: string;
+  id: number;
   document?:
     | ({
-        relationTo: 'users';
-        value: string | User;
+        relationTo: 'offers';
+        value: number | Offer;
       } | null)
     | ({
-        relationTo: 'media';
-        value: string | Media;
+        relationTo: 'products';
+        value: number | Product;
+      } | null)
+    | ({
+        relationTo: 'units';
+        value: number | Unit;
+      } | null)
+    | ({
+        relationTo: 'customers';
+        value: number | Customer;
+      } | null)
+    | ({
+        relationTo: 'users';
+        value: number | User;
       } | null);
   globalSlug?: string | null;
-  user: {
-    relationTo: 'users';
-    value: string | User;
-  };
+  user:
+    | {
+        relationTo: 'customers';
+        value: number | Customer;
+      }
+    | {
+        relationTo: 'users';
+        value: number | User;
+      };
   updatedAt: string;
   createdAt: string;
 }
@@ -184,11 +313,16 @@ export interface PayloadLockedDocument {
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: string;
-  user: {
-    relationTo: 'users';
-    value: string | User;
-  };
+  id: number;
+  user:
+    | {
+        relationTo: 'customers';
+        value: number | Customer;
+      }
+    | {
+        relationTo: 'users';
+        value: number | User;
+      };
   key?: string | null;
   value?:
     | {
@@ -207,11 +341,92 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: string;
+  id: number;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "offers_select".
+ */
+export interface OffersSelect<T extends boolean = true> {
+  ordersMaxDate?: T;
+  distributionDate?: T;
+  baskets?:
+    | T
+    | {
+        title?: T;
+        price?: T;
+        items?:
+          | T
+          | {
+              item?: T;
+              unit?: T;
+              quantity?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  singles?:
+    | T
+    | {
+        item?: T;
+        unit?: T;
+        quantity?: T;
+        price?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "products_select".
+ */
+export interface ProductsSelect<T extends boolean = true> {
+  title?: T;
+  defaultUnit?: T;
+  defaultQuantity?: T;
+  defaultPrice?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "units_select".
+ */
+export interface UnitsSelect<T extends boolean = true> {
+  title?: T;
+  title_plural?: T;
+  value?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "customers_select".
+ */
+export interface CustomersSelect<T extends boolean = true> {
+  full_name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  username?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+  sessions?:
+    | T
+    | {
+        id?: T;
+        createdAt?: T;
+        expiresAt?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -234,24 +449,6 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media_select".
- */
-export interface MediaSelect<T extends boolean = true> {
-  alt?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -284,6 +481,28 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home".
+ */
+export interface Home {
+  id: number;
+  title: string;
+  _status?: ('draft' | 'published') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home_select".
+ */
+export interface HomeSelect<T extends boolean = true> {
+  title?: T;
+  _status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
