@@ -38,6 +38,7 @@ export const useOrdersStore = create<Store>()((set) => ({
         `${
           type === 'baskets' ? 'Cesta ' + items[itemsIndex].title : items[itemsIndex].title
         } foi removido.`,
+        { position: 'top-right' },
       )
       if (items[itemsIndex].multiplier > 1) {
         items[itemsIndex].multiplier--
@@ -65,7 +66,7 @@ export const useOrdersStore = create<Store>()((set) => ({
         delete itemTemp.quantity
       }
 
-      toast(`${itemTemp.title} foi adicionado ao carrinho.`)
+      toast(`${itemTemp.title} foi adicionado ao carrinho.`, { position: 'top-right' })
       if (newCart[type].filter((i) => i.id === itemTemp.id).length > 0) {
         let indexOf = findIndex(newCart[type], { id: itemTemp.id })
         newCart[type][indexOf].multiplier++

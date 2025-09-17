@@ -32,7 +32,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   }, [cart])
   return (
     <Sidebar {...props}>
-      <SidebarContent>
+      <SidebarContent className="pt-12">
         {['baskets', 'singles'].map((type) => {
           const collection = cart[type as 'baskets' | 'singles']
           if (collection.length === 0) return null
