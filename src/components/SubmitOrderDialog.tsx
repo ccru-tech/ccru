@@ -123,7 +123,7 @@ export default function SubmitOrderDialog(props: SubmitOrderDialogProps) {
                   return `\n${type === 'baskets' ? 'Cestas' : 'Avulsos'}:\n${collection.map((item) => `- ${item.title} x ${item.multiplier}\n`).join('')}`
                 })
                 .join('')}`,
-            )}\nLink do pedido: https://https://ccru-one.vercel.app/[ID_DA_OFERTA]/[ID_DO_PEDIDO]`}
+            )}\n\nLink do pedido: https://ccru-one.vercel.app/[ID_DA_OFERTA]/[ID_DO_PEDIDO]`}
             target="_blank"
           >
             <Button className="w-full cursor-pointer">Completar pedido</Button>

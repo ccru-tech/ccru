@@ -65,7 +65,7 @@ export const useOrdersStore = create<Store>()((set) => ({
         delete itemTemp.quantity
       }
 
-      toast(`${item.title} foi adicionado ao carrinho.`)
+      toast(`${itemTemp.title} foi adicionado ao carrinho.`)
       if (newCart[type].filter((i) => i.id === itemTemp.id).length > 0) {
         let indexOf = findIndex(newCart[type], { id: itemTemp.id })
         newCart[type][indexOf].multiplier++
