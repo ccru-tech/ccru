@@ -1,5 +1,6 @@
 import { Product, Unit } from '@/payload-types'
-import { findIndex } from 'lodash'
+import { findIndex, sum } from 'lodash'
+import { toast } from 'sonner'
 import { create } from 'zustand'
 
 type Cart = {
@@ -34,6 +35,30 @@ export const useOrdersStore = create<Store>()((set) => ({
       let items = [...state.cart[type]]
       let itemsIndex = findIndex(items, { id })
 
+      toast(
+        `${
+          type === 'baskets'
+            ? 'Cesta ' +
+              (
+                items[itemsIndex] as {
+                  id: string
+                  title: string
+                  price: number
+                  multiplier: number
+                }
+              ).title
+            : (
+                items[itemsIndex] as {
+                  id: string
+                  item: Product
+                  unit: Unit
+                  quantity: number
+                  price: number
+                  multiplier: number
+                }
+              ).item.title
+        } foi removido.`,
+      )
       if (items[itemsIndex].multiplier > 1) {
         items[itemsIndex].multiplier--
         return { ...state, cart: { ...state.cart, [type]: items } }
@@ -48,6 +73,7 @@ export const useOrdersStore = create<Store>()((set) => ({
       delete basketTemp.items
       delete basketTemp.unit
       let newCart = { ...state.cart }
+      toast(`Cesta ${basket.title} foi adicionada ao carrinho.`)
       if (newCart.baskets.filter((i) => i.id === basketTemp.id).length > 0) {
         let indexOf = findIndex(newCart.baskets, { id: basketTemp.id })
         newCart.baskets[indexOf].multiplier++
@@ -65,6 +91,8 @@ export const useOrdersStore = create<Store>()((set) => ({
   addSingle: (item) =>
     set((state) => {
       let newCart = { ...state.cart }
+      toast(`${item.item.title} foi adicionado ao carrinho.`)
+
       if (state.cart.singles.filter((i) => i.id === item.id).length > 0) {
         let indexOf = findIndex(state.cart.singles, { id: item.id })
         newCart.singles[indexOf].multiplier++
@@ -77,3 +105,8 @@ export const useOrdersStore = create<Store>()((set) => ({
       }
     }),
 }))
+
+export function useTotalItems() {
+  const { cart } = useOrdersStore()
+  return sum(cart.baskets.map((i) => i.multiplier)) + sum(cart.singles.map((i) => i.multiplier))
+}

@@ -19,7 +19,8 @@ import {
 } from '@/components/ui/sheet'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
-import { useOrdersStore } from '@/lib/ordersStore'
+import { useOrdersStore, useTotalItems } from '@/lib/ordersStore'
+import { sum } from 'lodash'
 
 const SIDEBAR_COOKIE_NAME = 'sidebar_state'
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
@@ -249,6 +250,7 @@ function Sidebar({
 function SidebarTrigger({ className, onClick, ...props }: React.ComponentProps<typeof Button>) {
   const { toggleSidebar } = useSidebar()
   const { cart } = useOrdersStore()
+  const totalItems = useTotalItems()
   return (
     <Button
       data-sidebar="trigger"
@@ -267,7 +269,7 @@ function SidebarTrigger({ className, onClick, ...props }: React.ComponentProps<t
     >
       {(cart.singles.length > 0 || cart.baskets.length > 0) && (
         <div className="absolute -top-1.5 -right-1.5 bg-red-600 flex items-center justify-center size-5 shadow rounded-full text-xs text-white">
-          {cart.baskets.length + cart.singles.length}
+          {totalItems}
         </div>
       )}
       <ShoppingCart />

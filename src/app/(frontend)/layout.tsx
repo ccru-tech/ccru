@@ -1,4 +1,6 @@
 import React from 'react'
+import { Toaster } from '@/components/ui/sonner'
+
 import './globals.css'
 
 export const metadata = {
@@ -13,6 +15,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
     <html lang="en">
       <body>
         <main>{children}</main>
+        <Toaster />
       </body>
     </html>
   )

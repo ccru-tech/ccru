@@ -10,13 +10,15 @@ import {
   SidebarGroupLabel,
   SidebarRail,
 } from '@/components/ui/sidebar'
-import { useOrdersStore } from '@/lib/ordersStore'
+import { useOrdersStore, useTotalItems } from '@/lib/ordersStore'
 import { Button } from './ui/button'
 import { Minus, Plus } from 'lucide-react'
 import Link from 'next/link'
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { cart, removeItem, addSingle, addBasket } = useOrdersStore()
+
+  const totalItems = useTotalItems()
   const total = React.useMemo(() => {
     let result = 0
     cart.baskets.forEach((basket) => {
@@ -32,7 +34,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         {cart.baskets.length > 0 && (
           <SidebarGroup>
-            <SidebarGroupLabel>Cestas</SidebarGroupLabel>
+            <SidebarGroupLabel className="text-xs uppercase tracking-wide">
+              Cestas
+            </SidebarGroupLabel>
             <SidebarGroupContent className="px-2">
               <ul className="flex flex-col gap-3">
                 {cart.baskets.map((basket) => {
@@ -43,7 +47,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     >
                       <Button
                         size="icon"
-                        className="size-6 rounded-full cursor-pointer shrink-0 bg-red-600/30 text-black hover:text-white"
+                        className="w-8 h-12 rounded-xs cursor-pointer shrink-0 bg-red-600/30 text-black hover:text-white"
                         variant={'destructive'}
                         onClick={() => removeItem(basket.id, 'baskets')}
                       >
@@ -62,7 +66,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       </div>
                       <Button
                         size="icon"
-                        className="size-6 rounded-full cursor-pointer shrink-0 bg-lime-600/30 text-black hover:text-white"
+                        className="w-8 h-12 rounded-xs cursor-pointer shrink-0 bg-lime-600/30 text-black hover:text-white"
                         variant={'default'}
                         onClick={() => addBasket(basket)}
                       >
@@ -77,7 +81,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         )}
         {cart.singles.length > 0 && (
           <SidebarGroup>
-            <SidebarGroupLabel>Avulsos</SidebarGroupLabel>
+            <SidebarGroupLabel className="text-xs uppercase tracking-wide">
+              Avulsos
+            </SidebarGroupLabel>
             <SidebarGroupContent className="px-2">
               <ul className="flex flex-col gap-3">
                 {cart.singles.map((single) => {
@@ -88,7 +94,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     >
                       <Button
                         size="icon"
-                        className="size-6 rounded-full cursor-pointer shrink-0 bg-red-600/30 text-black hover:text-white"
+                        className="w-8 h-12 rounded-xs cursor-pointer shrink-0 bg-red-600/30 text-black hover:text-white"
                         variant={'destructive'}
                         onClick={() => removeItem(single.id, 'singles')}
                       >
@@ -108,7 +114,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       </div>
                       <Button
                         size="icon"
-                        className="size-6 rounded-full cursor-pointer shrink-0 bg-lime-600/30 text-black hover:text-white"
+                        className="w-8 h-12 rounded-xs cursor-pointer shrink-0 bg-lime-600/30 text-black hover:text-white"
                         variant={'default'}
                         onClick={() => addSingle(single)}
                       >
@@ -130,9 +136,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarGroup>
         )}
         <SidebarGroup>
-          <SidebarGroupLabel>Total</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-xs uppercase tracking-wide">
+            Total ({totalItems} {totalItems > 1 ? 'itens' : 'item'})
+          </SidebarGroupLabel>
           <SidebarGroupContent className="px-2 flex flex-col gap-3">
-            <p>
+            <p className="text-xl">
               {new Intl.NumberFormat('pt-BR', {
                 style: 'currency',
                 currency: 'BRL',
