@@ -27,7 +27,7 @@ import { cn } from '@/lib/utils'
 export type BasketCardProps = { basket: any /* Offer.baskets */ }
 
 export function BasketCard({ basket }: BasketCardProps) {
-  const { cart, setCart, addBasket } = useOrdersStore()
+  const { cart, setCart, addItem } = useOrdersStore()
 
   return (
     <Card className="w-full">
@@ -45,7 +45,7 @@ export function BasketCard({ basket }: BasketCardProps) {
               'cursor-pointer',
               cart.baskets.filter((i) => i.id === basket.id).length > 0 && 'opacity-70',
             )}
-            onClick={() => addBasket(basket)}
+            onClick={() => addItem(basket, 'baskets')}
           >
             <Plus /> Adicionar
           </Button>
@@ -76,7 +76,7 @@ export function BasketCard({ basket }: BasketCardProps) {
 export type SinglesCardProps = { offer: Offer }
 
 export function SinglesCard({ offer }: SinglesCardProps) {
-  const { cart, addSingle } = useOrdersStore()
+  const { cart, addItem } = useOrdersStore()
 
   return (
     <Card className="w-full">
@@ -103,7 +103,7 @@ export function SinglesCard({ offer }: SinglesCardProps) {
                   <TableCell className="text-right w-0">
                     <Button
                       size={'sm'}
-                      onClick={() => addSingle(it)}
+                      onClick={() => addItem(it, 'singles')}
                       className={cn(
                         'cursor-pointer',
                         cart.singles.filter((i) => i.id === it.id).length > 0 && 'opacity-70',

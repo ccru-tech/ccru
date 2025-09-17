@@ -3,16 +3,16 @@ import { findIndex, sum } from 'lodash'
 import { toast } from 'sonner'
 import { create } from 'zustand'
 
+type Item = {
+  id: string
+  title: string
+  price: number
+  multiplier: number
+}
+
 type Cart = {
-  baskets: { id: string; title: string; price: number; multiplier: number }[]
-  singles: {
-    id: string
-    item: Product
-    unit: Unit
-    quantity: number
-    price: number
-    multiplier: number
-  }[]
+  baskets: Item[]
+  singles: Item[]
 }
 
 type Store = {
@@ -21,8 +21,7 @@ type Store = {
   cart: Cart
   setCart: (cart: Cart) => void
   removeItem: (id: string, type: 'singles' | 'baskets') => void
-  addBasket: (basket: any) => void
-  addSingle: (single: any) => void
+  addItem: (item: any, type: 'singles' | 'baskets') => void
 }
 
 export const useOrdersStore = create<Store>()((set) => ({
@@ -37,26 +36,7 @@ export const useOrdersStore = create<Store>()((set) => ({
 
       toast(
         `${
-          type === 'baskets'
-            ? 'Cesta ' +
-              (
-                items[itemsIndex] as {
-                  id: string
-                  title: string
-                  price: number
-                  multiplier: number
-                }
-              ).title
-            : (
-                items[itemsIndex] as {
-                  id: string
-                  item: Product
-                  unit: Unit
-                  quantity: number
-                  price: number
-                  multiplier: number
-                }
-              ).item.title
+          type === 'baskets' ? 'Cesta ' + items[itemsIndex].title : items[itemsIndex].title
         } foi removido.`,
       )
       if (items[itemsIndex].multiplier > 1) {
@@ -67,40 +47,36 @@ export const useOrdersStore = create<Store>()((set) => ({
         return { ...state, cart: { ...state.cart, [type]: items } }
       }
     }),
-  addBasket: (basket) =>
+
+  addItem: (item, type) =>
     set((state) => {
-      let basketTemp = { ...basket }
-      delete basketTemp.items
-      delete basketTemp.unit
       let newCart = { ...state.cart }
-      toast(`Cesta ${basket.title} foi adicionada ao carrinho.`)
-      if (newCart.baskets.filter((i) => i.id === basketTemp.id).length > 0) {
-        let indexOf = findIndex(newCart.baskets, { id: basketTemp.id })
-        newCart.baskets[indexOf].multiplier++
+
+      let itemTemp = { ...item }
+
+      if (type === 'baskets') {
+        delete itemTemp.items
+        delete itemTemp.unit
+      }
+      if (type === 'singles') {
+        if (!item.title) itemTemp.title = itemTemp.item.title
+        delete itemTemp.item
+        delete itemTemp.unit
+        delete itemTemp.quantity
+      }
+
+      toast(`${item.title} foi adicionado ao carrinho.`)
+      if (newCart[type].filter((i) => i.id === itemTemp.id).length > 0) {
+        let indexOf = findIndex(newCart[type], { id: itemTemp.id })
+        newCart[type][indexOf].multiplier++
         return { ...state, cart: newCart }
       } else {
         return {
           ...state,
           cart: {
-            ...state.cart,
-            baskets: [...state.cart.baskets, { ...basketTemp, multiplier: 1 }],
+            ...newCart,
+            [type]: [...newCart[type], { ...itemTemp, multiplier: 1 }],
           },
-        }
-      }
-    }),
-  addSingle: (item) =>
-    set((state) => {
-      let newCart = { ...state.cart }
-      toast(`${item.item.title} foi adicionado ao carrinho.`)
-
-      if (state.cart.singles.filter((i) => i.id === item.id).length > 0) {
-        let indexOf = findIndex(state.cart.singles, { id: item.id })
-        newCart.singles[indexOf].multiplier++
-        return { ...state, cart: newCart }
-      } else {
-        return {
-          ...state,
-          cart: { ...state.cart, singles: [...state.cart.singles, { ...item, multiplier: 1 }] },
         }
       }
     }),
