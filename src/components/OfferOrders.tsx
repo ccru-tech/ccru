@@ -58,11 +58,7 @@ export default function OfferOrders({
           <div className="grid gap-3 ">
             {selectedOrders.map((order) => {
               return (
-                <Collapsible
-                  key={'order_offer_' + order.id}
-                  className="border rounded-md"
-                  defaultOpen
-                >
+                <Collapsible key={'order_offer_' + order.id} className="border rounded-md">
                   <CollapsibleTrigger asChild>
                     <div className="grid cursor-pointer group p-2 border-b">
                       <div className="flex gap-3 justify-between ">

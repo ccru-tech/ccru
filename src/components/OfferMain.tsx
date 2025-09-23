@@ -17,9 +17,14 @@ export default function OfferMain({ offer }: OfferMainProps) {
   const distributionDate = new Date(offer.distributionDate)
   const ordersMaxDate = new Date(offer.ordersMaxDate)
   return (
-    <div className="container mx-auto px-4 py-8 bg-muted">
+    <div className="container mx-auto px-4 py-4 pb-16 bg-muted">
       <SidebarTrigger />
-      <h1 className="font-black text-3xl md:text-5xl mb-4">CCRU Vila Prudente</h1>
+      <img
+        src="https://static.wixstatic.com/media/84a241_22441e0523ec4146a0ff9ece3cd78cda~mv2.png/v1/fill/w_298,h_298,al_c,lg_1,q_85,enc_avif,quality_auto/84a241_22441e0523ec4146a0ff9ece3cd78cda~mv2.png"
+        alt="Coletivo CRU"
+        className="w-24"
+      />{' '}
+      <h1 className="font-bold text-xl">Compra coletiva</h1>
       <div className="flex gap-8 mb-8 justify-between">
         <div className="grid gap-0">
           <p className="font-bold text-muted-foreground">Data de distribuição</p>
@@ -30,13 +35,13 @@ export default function OfferMain({ offer }: OfferMainProps) {
           <p className="">{ordersMaxDate.toLocaleDateString('pt-BR')}</p>
         </div>
       </div>
-      <h2 className="text-xl lg:text-4xl font-bold mb-4">Cestas</h2>
+      <h2 className="text-lg font-bold mb-2">Cestas</h2>
       <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-3 mb-8">
         {offer.baskets?.map((basket) => {
           return <BasketCard key={basket.id} basket={basket} />
         })}
       </div>
-      <h2 className="text-xl lg:text-4xl font-bold mb-4">Avulsos</h2>
+      <h2 className="text-lg font-bold mb-2">Avulsos</h2>
       <SinglesCard offer={offer} />
     </div>
   )
