@@ -15,6 +15,8 @@ import { Products } from './collections/Products'
 import { pt } from '@payloadcms/translations/languages/pt'
 import { Offers } from './collections/Offers/config'
 import { Customers } from './collections/Customers/config'
+import { DistributionPoints } from './collections/DistributionPoints'
+import { Orders } from './collections/Orders/config'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -48,7 +50,7 @@ export default buildConfig({
         : false,
   },
   globals: [Home],
-  collections: [Offers, Products, Units, Customers, Users],
+  collections: [Offers, Products, Units, Customers, DistributionPoints, Orders, Users],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

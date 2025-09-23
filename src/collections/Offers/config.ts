@@ -39,7 +39,14 @@ export const Offers: CollectionConfig = {
         },
       ],
     },
-
+    {
+      name: 'distribution_points',
+      label: { plural: 'Pontos de Distribuição', singular: 'Ponto de Distribuição' },
+      type: 'relationship',
+      relationTo: 'distributionPoints',
+      defaultValue: [1, 2, 3, 4],
+      hasMany: true,
+    },
     // Cestas
     {
       name: 'baskets',

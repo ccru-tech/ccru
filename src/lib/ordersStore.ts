@@ -1,4 +1,4 @@
-import { Product, Unit } from '@/payload-types'
+import { Offer, Product, Unit } from '@/payload-types'
 import { findIndex, sum } from 'lodash'
 import { toast } from 'sonner'
 import { create } from 'zustand'
@@ -22,11 +22,17 @@ type Store = {
   setCart: (cart: Cart) => void
   removeItem: (id: string, type: 'singles' | 'baskets') => void
   addItem: (item: any, type: 'singles' | 'baskets') => void
+  offer: Offer | null
+  setOffer: (offer: Offer) => void
+  distributionPoint: number | 'Todos'
+  setDistributionPoint: (value: string) => void
 }
 
 export const useOrdersStore = create<Store>()((set) => ({
   count: 1,
   inc: () => set((state) => ({ count: state.count + 1 })),
+  offer: null,
+  setOffer: (offer: Offer) => set((state) => ({ ...state, offer })),
   cart: { baskets: [], singles: [] },
   setCart: (cart) => set((state) => ({ ...state, cart })),
   removeItem: (id, type) =>
@@ -48,7 +54,6 @@ export const useOrdersStore = create<Store>()((set) => ({
         return { ...state, cart: { ...state.cart, [type]: items } }
       }
     }),
-
   addItem: (item, type) =>
     set((state) => {
       let newCart = { ...state.cart }
@@ -80,6 +85,11 @@ export const useOrdersStore = create<Store>()((set) => ({
           },
         }
       }
+    }),
+  distributionPoint: 'Todos',
+  setDistributionPoint: (value) =>
+    set((state) => {
+      return { ...state, distributionPoint: value === 'Todos' ? value : parseInt(value) }
     }),
 }))
 

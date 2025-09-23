@@ -72,6 +72,8 @@ export interface Config {
     products: Product;
     units: Unit;
     customers: Customer;
+    distributionPoints: DistributionPoint;
+    orders: Order;
     users: User;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -83,6 +85,8 @@ export interface Config {
     products: ProductsSelect<false> | ProductsSelect<true>;
     units: UnitsSelect<false> | UnitsSelect<true>;
     customers: CustomersSelect<false> | CustomersSelect<true>;
+    distributionPoints: DistributionPointsSelect<false> | DistributionPointsSelect<true>;
+    orders: OrdersSelect<false> | OrdersSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -166,6 +170,7 @@ export interface Offer {
   id: number;
   ordersMaxDate: string;
   distributionDate: string;
+  distribution_points?: (number | DistributionPoint)[] | null;
   baskets?:
     | {
         title: string;
@@ -190,6 +195,16 @@ export interface Offer {
         id?: string | null;
       }[]
     | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "distributionPoints".
+ */
+export interface DistributionPoint {
+  id: number;
+  title: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -246,6 +261,33 @@ export interface Customer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "orders".
+ */
+export interface Order {
+  id: number;
+  name: string;
+  phone: string;
+  distributionPoint: number | DistributionPoint;
+  offer: number | Offer;
+  baskets?:
+    | {
+        itemId: string;
+        multiplier: number;
+        id?: string | null;
+      }[]
+    | null;
+  singles?:
+    | {
+        itemId: string;
+        multiplier: number;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -290,6 +332,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'customers';
         value: number | Customer;
+      } | null)
+    | ({
+        relationTo: 'distributionPoints';
+        value: number | DistributionPoint;
+      } | null)
+    | ({
+        relationTo: 'orders';
+        value: number | Order;
       } | null)
     | ({
         relationTo: 'users';
@@ -354,6 +404,7 @@ export interface PayloadMigration {
 export interface OffersSelect<T extends boolean = true> {
   ordersMaxDate?: T;
   distributionDate?: T;
+  distribution_points?: T;
   baskets?:
     | T
     | {
@@ -427,6 +478,41 @@ export interface CustomersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "distributionPoints_select".
+ */
+export interface DistributionPointsSelect<T extends boolean = true> {
+  title?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "orders_select".
+ */
+export interface OrdersSelect<T extends boolean = true> {
+  name?: T;
+  phone?: T;
+  distributionPoint?: T;
+  offer?: T;
+  baskets?:
+    | T
+    | {
+        itemId?: T;
+        multiplier?: T;
+        id?: T;
+      };
+  singles?:
+    | T
+    | {
+        itemId?: T;
+        multiplier?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

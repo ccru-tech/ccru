@@ -30,8 +30,8 @@ export function BasketCard({ basket }: BasketCardProps) {
   const { cart, setCart, addItem } = useOrdersStore()
 
   return (
-    <Card className="w-full">
-      <CardHeader>
+    <Card className="p-0">
+      <CardHeader className="p-3 md:p-4 !pb-0">
         <CardTitle>Cesta {basket.title}</CardTitle>
         <CardDescription>
           {new Intl.NumberFormat('pt-BR', {
@@ -51,7 +51,7 @@ export function BasketCard({ basket }: BasketCardProps) {
           </Button>
         </CardAction>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-3 md:p-4 !pt-0">
         <Table>
           <TableBody>
             {basket.items?.map((it: any) => {
@@ -67,7 +67,6 @@ export function BasketCard({ basket }: BasketCardProps) {
             })}
           </TableBody>
         </Table>
-        <ul className="text-sm grid gap-1 text-red-500"></ul>
       </CardContent>
     </Card>
   )
@@ -79,15 +78,15 @@ export function SinglesCard({ offer }: SinglesCardProps) {
   const { cart, addItem } = useOrdersStore()
 
   return (
-    <Card className="w-full">
-      <CardContent>
+    <Card className="w-full p-0">
+      <CardContent className="p-3 md:p-4">
         <Table>
           <TableBody>
             {offer.singles?.map((it) => {
               const item = it.item as Product
               return (
-                <TableRow key={item.id}>
-                  <TableCell className="font-medium w-1/2 md:w-1/3 whitespace-normal">
+                <TableRow key={item.id} className="odd:bg-primary/10 hover:bg-primary/20">
+                  <TableCell className="font-medium w-1/2  lg:w-max whitespace-normal ">
                     {item.title}
                   </TableCell>
                   <TableCell>
@@ -117,7 +116,6 @@ export function SinglesCard({ offer }: SinglesCardProps) {
             })}
           </TableBody>
         </Table>
-        <ul className="text-sm grid gap-1 text-red-500"></ul>
       </CardContent>
     </Card>
   )

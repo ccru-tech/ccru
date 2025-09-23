@@ -4,10 +4,11 @@ import { getPayload } from 'payload'
 import config from '@/payload.config'
 import { RefreshRouteOnSave } from '../../RefreshRouteOnSave'
 
-import { AppSidebar } from '@/components/app-sidebar'
+import { CartSidebar } from '@/components/CartSidebar'
 import { BasketCard, SinglesCard } from '@/components/ProductCards'
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
 import { cn } from '@/lib/utils'
+import OfferMain from '@/components/OfferMain'
 
 export default async function OfferPage({ params }: { params: Promise<{ offerId: string }> }) {
   const { offerId: id } = await params
@@ -47,33 +48,10 @@ export default async function OfferPage({ params }: { params: Promise<{ offerId:
             )}
           >
             <RefreshRouteOnSave />
-            <div className="container mx-auto px-4 py-8">
-              <SidebarTrigger />
-              <h1 className="font-black text-3xl md:text-5xl mb-4">CCRU Vila Prudente</h1>
-              <div className="flex gap-8 mb-8 justify-between">
-                <div className="grid gap-0">
-                  <p className="font-bold text-muted-foreground">Data de distribuição</p>
-                  <p className="font-medium text-lg">
-                    {distributionDate.toLocaleDateString('pt-BR')}
-                  </p>
-                </div>
-                <div className="grid gap-0">
-                  <p className="font-bold text-sm text-muted-foreground">Pedidos até</p>
-                  <p className="">{ordersMaxDate.toLocaleDateString('pt-BR')}</p>
-                </div>
-              </div>
-              <h2 className="text-xl font-bold mb-4">Cestas</h2>
-              <div className="grid gap-4 lg:flex mb-8">
-                {offer.baskets?.map((basket) => {
-                  return <BasketCard key={basket.id} basket={basket} />
-                })}
-              </div>
-              <h2 className="text-xl font-bold mb-4">Avulsos</h2>
-              <SinglesCard offer={offer} />
-            </div>
+            <OfferMain offer={offer} />
           </main>
         </SidebarInset>
-        <AppSidebar side="right" />
+        <CartSidebar side="right" />
       </SidebarProvider>
     </>
   )

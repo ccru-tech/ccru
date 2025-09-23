@@ -258,7 +258,7 @@ function SidebarTrigger({ className, onClick, ...props }: React.ComponentProps<t
       variant="ghost"
       size="icon"
       className={cn(
-        'fixed z-100 bottom-4 left-4 size-12 rounded-full shadow border bg-foreground text-background',
+        'fixed z-100 bottom-4 left-4 size-12 rounded-full shadow border bg-foreground text-background cursor-pointer',
         className,
       )}
       onClick={(event) => {

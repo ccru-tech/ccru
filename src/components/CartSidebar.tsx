@@ -11,12 +11,11 @@ import {
   SidebarRail,
 } from '@/components/ui/sidebar'
 import { useOrdersStore, useTotalItems } from '@/lib/ordersStore'
-import { Button } from './ui/button'
 import { Minus, Plus } from 'lucide-react'
-import Link from 'next/link'
 import SubmitOrderDialog from './SubmitOrderDialog'
+import { Button } from './ui/button'
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function CartSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { cart, removeItem, addItem } = useOrdersStore()
 
   const totalItems = useTotalItems()
