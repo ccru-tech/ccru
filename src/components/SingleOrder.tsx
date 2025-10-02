@@ -15,7 +15,7 @@ import { useOrdersStore } from '@/lib/ordersStore'
 import { processOrderArray } from '@/lib/utils'
 import { DistributionPoint, Offer, Order } from '@/payload-types'
 import { find, sum } from 'lodash'
-import { ArrowRight, Clipboard, MessageCircle, PhoneCall } from 'lucide-react'
+import { AlertCircle, ArrowRight, Clipboard, MessageCircle, PhoneCall } from 'lucide-react'
 import { useCallback, useMemo } from 'react'
 import { Button } from './ui/button'
 import { Textarea } from './ui/textarea'
@@ -190,10 +190,13 @@ export default function SingleOrder({
         </CardContent>
       </Card>
 
-      <h2 className="font-bold text-xl">Envie o comprovante do pedido no Whatsapp</h2>
+      <h2 className="font-bold text-xl flex gap-3 items-center">
+        <AlertCircle />
+        Envie o comprovante do pedido no Whatsapp
+      </h2>
       <p>
-        Como ainda estamos testando o app, pedimos que envie essa mensagem para o seu grupo de
-        compras do CCRU no Whatsapp.
+        Para validar o seu pedido, pedimos que envie essa mensagem para o seu grupo de compras do
+        CCRU no Whatsapp.
       </p>
       <div className="relative">
         <Button
@@ -222,13 +225,14 @@ export default function SingleOrder({
       <Alert>
         <TriangleAlert />
         <AlertDescription>
-          <p>
+          <p className="text-xs">
             Ao clicar no botão acima você será encaminhado/a para o aplicativo do Whatsapp com uma
             mensagem pré-escrita contendo o comprovante do seu pedido. Se preferir, copie e cole a
             mensagem.
           </p>
         </AlertDescription>
       </Alert>
+      <h2 className="font-bold text-xl text-center">Muito obrigado pelo seu pedido!</h2>
       <Link href={`/ofertas/${offer.id}/pedidos`}>
         <Button variant={'link'} className="w-full cursor-pointer">
           Ver o painel da compra <ArrowRight />

@@ -11,12 +11,13 @@ import {
   SidebarRail,
 } from '@/components/ui/sidebar'
 import { useOrdersStore, useTotalItems } from '@/lib/ordersStore'
-import { Minus, Plus } from 'lucide-react'
+import { ArrowRight, Minus, Plus } from 'lucide-react'
 import SubmitOrderDialog from './SubmitOrderDialog'
 import { Button } from './ui/button'
+import Link from 'next/link'
 
 export function CartSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { cart, removeItem, addItem } = useOrdersStore()
+  const { cart, removeItem, addItem, offer } = useOrdersStore()
 
   const totalItems = useTotalItems()
   const total = React.useMemo(() => {
@@ -29,6 +30,13 @@ export function CartSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
     })
     return result
   }, [cart])
+  const now = new Date()
+  const distributionDate = React.useMemo(() => {
+    return offer ? new Date(offer.distributionDate) : 0
+  }, [offer])
+  const ordersMaxDate = React.useMemo(() => {
+    return offer ? new Date(new Date(offer.ordersMaxDate)) : 0
+  }, [offer])
   return (
     <Sidebar {...props}>
       <SidebarContent className="pt-12">
@@ -100,7 +108,18 @@ export function CartSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
                 currency: 'BRL',
               }).format(total)}
             </p>
-            <SubmitOrderDialog />
+            {now > distributionDate ? (
+              <div className="grid gap-3">
+                <p>Oferta já encerrada. </p>
+                <Link href={`/ofertas/${offer?.id}/pedidos`}>
+                  <Button className="cursor-pointer">
+                    Acompanhe aqui os pedidos. <ArrowRight />
+                  </Button>
+                </Link>
+              </div>
+            ) : (
+              <SubmitOrderDialog />
+            )}
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>

@@ -27,11 +27,6 @@ export default async function OfferPage({ params }: { params: Promise<{ offerId:
   const ordersMaxDate = new Date(offer.ordersMaxDate)
   return (
     <>
-      {now > distributionDate && (
-        <div className="fixed w-svw h-svh bg-black/90 top-0 left-0 z-50 flex items-center justify-center text-lg text-white">
-          Oferta já encerrada.
-        </div>
-      )}
       <SidebarProvider
         style={
           {
@@ -41,12 +36,7 @@ export default async function OfferPage({ params }: { params: Promise<{ offerId:
         }
       >
         <SidebarInset>
-          <main
-            className={cn(
-              'min-h-svh w-full',
-              now > distributionDate && 'max-h-svh overflow-hidden pointer-events-none',
-            )}
-          >
+          <main className={cn('min-h-svh w-full')}>
             <RefreshRouteOnSave />
             <OfferMain offer={offer} />
           </main>

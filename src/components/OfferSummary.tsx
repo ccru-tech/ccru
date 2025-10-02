@@ -16,9 +16,14 @@ export default function OfferSummary({ offer }: OfferSummaryProps) {
   return (
     <Card className="w-full p-0 overflow-hidden">
       <CardContent className="p-0">
-        <div className="lg:h-20 p-4 border-b">
-          <div className="grid lg:flex gap-4 lg:justify-between lg:items-center">
-            <div className="grid gap-4 lg:flex lg:gap-16">
+        <div className="lg:h-20 px-4 items-center flex">
+          <div className="grid lg:flex gap-4 lg:justify-between lg:items-center w-full">
+            <div className="grid gap-4 lg:flex lg:gap-12 lg:items-center">
+              <img
+                src="https://static.wixstatic.com/media/84a241_22441e0523ec4146a0ff9ece3cd78cda~mv2.png/v1/fill/w_298,h_298,al_c,lg_1,q_85,enc_avif,quality_auto/84a241_22441e0523ec4146a0ff9ece3cd78cda~mv2.png"
+                alt="Coletivo CRU"
+                className="h-20"
+              />
               <div>
                 <h3 className="uppercase text-[10px] text-muted-foreground mb-0.5">
                   <span>Entrega do dia</span>
@@ -28,10 +33,10 @@ export default function OfferSummary({ offer }: OfferSummaryProps) {
                 </h2>
               </div>
               <div>
-                <h3 className="uppercase text-[10px] text-muted-foreground mb-2">
+                <h3 className="uppercase text-[10px] text-muted-foreground mb-2.5">
                   <span>Pontos de distribuição</span>
                 </h3>
-                <p className="text-sm">
+                <p className="text-sm font-semibold">
                   {offer.distribution_points
                     ?.map((point) => (typeof point !== 'number' ? point.title : point))
                     .join(', ')}
@@ -39,8 +44,8 @@ export default function OfferSummary({ offer }: OfferSummaryProps) {
               </div>
             </div>
             <Link href={`/ofertas/${offer.id}`}>
-              <Button className="cursor-pointer w-full lg:w-max">
-                Ir para oferta <ArrowRight />
+              <Button variant={'outline'} className="cursor-pointer w-full lg:w-max h-12">
+                Conferir oferta <ArrowRight />
               </Button>
             </Link>
           </div>

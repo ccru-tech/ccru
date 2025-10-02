@@ -29,12 +29,15 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '.
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { REGEXP_ONLY_DIGITS } from 'input-otp'
-import { ArrowRight, CheckCircle2Icon, TriangleAlert } from 'lucide-react'
+import { AlertCircleIcon, ArrowRight, CheckCircle2Icon, TriangleAlert } from 'lucide-react'
 import { useMediaQuery } from 'usehooks-ts'
 import { Input } from './ui/input'
 import { find } from 'lodash'
-import { createOrder } from '@/app/(frontend)/ofertas/[offerId]/functions'
+import { createOrder, deleteOrder } from '@/app/(frontend)/ofertas/[offerId]/functions'
 import { redirect } from 'next/navigation'
+import { toast } from 'sonner'
+import { useUsersStore } from '@/lib/userStore'
+import Link from 'next/link'
 
 export type SubmitOrderDialogProps = {}
 
@@ -96,10 +99,11 @@ export default function SubmitOrderDialog(props: SubmitOrderDialogProps) {
 
 const SubmitOrderForm = () => {
   const isDesktop = useMediaQuery('(min-width: 768px)')
-  const [location, setLocation] = React.useState('')
-  const [name, setName] = React.useState('')
-  const [phone, setPhone] = React.useState('')
+  const [isSubmitting, setIsSubmitting] = React.useState(false)
+  const [isDeleting, setIsDeleting] = React.useState(false)
+  const [hasOrdered, setHasOrdered] = React.useState<false | number>(false)
   const { cart, offer } = useOrdersStore()
+  const { phone, setPhone, name, setName, location, setLocation } = useUsersStore()
   const totalItems = useTotalItems()
   const total = React.useMemo(() => {
     let result = 0
@@ -112,8 +116,8 @@ const SubmitOrderForm = () => {
     return result
   }, [cart])
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    setIsSubmitting(true)
     e.preventDefault()
-    const customer = { name, location, phone, cart }
     const distributionPoint = find(offer?.distribution_points, { id: parseInt(location) })
     const order = {
       offer: offer?.id,
@@ -125,9 +129,30 @@ const SubmitOrderForm = () => {
       baskets: cart.baskets.map((basket) => ({ itemId: basket.id, multiplier: basket.multiplier })),
     }
     const res = await createOrder(order)
-    console.log(res)
-    if (res.success && res.order)
+
+    if (res.success && res.order) {
       redirect(`/ofertas/${typeof offer === 'number' ? offer : offer!.id}/pedidos/${res.order.id}`)
+    } else if (res.error === 'userHasOrdered' && res.id) {
+      setHasOrdered(res.id)
+    } else {
+      toast('Ocorreu um erro ao registrar se pedido.')
+      setIsSubmitting(false)
+    }
+  }
+  const handleHasOrdered = async () => {
+    if (hasOrdered === false) {
+      toast('Ocorreu um erro ao excluir o pedido.')
+      return
+    }
+    setIsDeleting(true)
+    const res = await deleteOrder(hasOrdered)
+    if (res.success) {
+      setIsSubmitting(false)
+      setHasOrdered(false)
+    } else {
+      toast('Ocorreu um erro ao excluir o pedido.')
+    }
+    setIsDeleting(false)
   }
   return (
     <ScrollArea className="h-[calc(80svh-5rem)]">
@@ -252,8 +277,8 @@ const SubmitOrderForm = () => {
             <Label htmlFor="email">Nome</Label>
             <Input
               type="text"
-              name="firstName"
-              autoComplete="name"
+              name="name"
+              autoComplete="firstName"
               placeholder="Nome"
               value={name}
               onChange={(v) => setName(v.target.value)}
@@ -269,6 +294,7 @@ const SubmitOrderForm = () => {
               required
               value={phone}
               onChange={(v) => setPhone(v)}
+              autoComplete="tel"
             >
               <InputOTPGroup>
                 <InputOTPSlot index={0} className="max-w-[8vw]" />
@@ -301,6 +327,38 @@ const SubmitOrderForm = () => {
             </p>
           </div>
         </div>
+        {hasOrdered !== false && (
+          <Alert className="bg-red-50 border-red-200 text-red-600">
+            <AlertCircleIcon className="" />
+            <AlertTitle className="text-red-600">
+              Você já realizou um pedido para essa oferta.
+            </AlertTitle>
+            <AlertDescription>
+              <p className="!leading-tight mt-2">
+                Confira o seu pedido{' '}
+                <Link
+                  href={`/ofertas/${offer?.id}/pedidos/${hasOrdered}`}
+                  className="font-bold underline"
+                  target="_blank"
+                >
+                  neste link
+                </Link>
+                . Caso deseje fazer um pedido diferente, você pode excluir seu pedido anterior e
+                criar um novo.
+              </p>
+              <Button
+                variant={'destructive'}
+                type="button"
+                size={'sm'}
+                className="w-full mt-3 cursor-pointer"
+                onClick={handleHasOrdered}
+                disabled={isDeleting}
+              >
+                Excluir pedido anterior
+              </Button>
+            </AlertDescription>
+          </Alert>
+        )}
         {isDesktop ? (
           <DialogFooter className="pt-6">
             <DialogClose asChild>
@@ -310,9 +368,9 @@ const SubmitOrderForm = () => {
             <Button
               type="submit"
               className="w-full cursor-pointer shrink"
-              disabled={location === '' || name === '' || phone.length < 10}
+              disabled={location === '' || name === '' || phone.length < 10 || isSubmitting}
             >
-              Completar pedido
+              {isSubmitting ? 'Enviando...' : 'Completar pedido'}
             </Button>
           </DialogFooter>
         ) : (
@@ -320,9 +378,9 @@ const SubmitOrderForm = () => {
             <Button
               type="submit"
               className="w-full cursor-pointer"
-              disabled={location === '' || name === '' || phone.length < 10}
+              disabled={location === '' || name === '' || phone.length < 10 || isSubmitting}
             >
-              Completar pedido
+              {isSubmitting ? 'Enviando...' : 'Completar pedido'}
             </Button>
             <DrawerClose asChild>
               <Button variant="outline">Cancelar</Button>

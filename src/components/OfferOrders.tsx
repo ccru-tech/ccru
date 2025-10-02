@@ -63,6 +63,24 @@ export default function OfferOrders({
                     <div className="grid cursor-pointer group p-2 border-b">
                       <div className="flex gap-3 justify-between ">
                         <div className="flex items-center gap-2 group-hover:text-primary">
+                          <Badge variant={'outline'} className="h-8 w-20 text-sm">
+                            {new Intl.NumberFormat('pt-BR', {
+                              style: 'currency',
+                              currency: 'BRL',
+                            }).format(
+                              sum(
+                                orderedItems(order).baskets.map(
+                                  (basket) => basket.price * basket.multiplier,
+                                ),
+                              ) +
+                                sum(
+                                  orderedItems(order).singles.map(
+                                    (single) => single.price * single.multiplier,
+                                  ),
+                                ) +
+                                frete,
+                            )}
+                          </Badge>
                           <p className="font-semibold">{order.name} </p>
                           <p className="flex gap-2 items-center font-light text-muted-foreground text-xs">
                             <PhoneCall className="size-3" />
@@ -76,24 +94,6 @@ export default function OfferOrders({
                             : order.distributionPoint.title}
                         </Badge>
                       </div>
-                      <p className="font-normal text-xl">
-                        {new Intl.NumberFormat('pt-BR', {
-                          style: 'currency',
-                          currency: 'BRL',
-                        }).format(
-                          sum(
-                            orderedItems(order).baskets.map(
-                              (basket) => basket.price * basket.multiplier,
-                            ),
-                          ) +
-                            sum(
-                              orderedItems(order).singles.map(
-                                (single) => single.price * single.multiplier,
-                              ),
-                            ) +
-                            frete,
-                        )}
-                      </p>
                     </div>
                   </CollapsibleTrigger>
                   <CollapsibleContent className="p-2">
