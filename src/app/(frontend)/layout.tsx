@@ -1,5 +1,10 @@
-import React from 'react'
 import { Toaster } from '@/components/ui/sonner'
+import { Ubuntu_Sans } from 'next/font/google'
+import React from 'react'
+
+const ubuntu = Ubuntu_Sans({
+  subsets: ['latin'],
+})
 
 import './globals.css'
 
@@ -12,7 +17,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
   return (
-    <html lang="en">
+    <html lang="en" className={ubuntu.className}>
       <body>
         <main>{children}</main>
         <Toaster />
