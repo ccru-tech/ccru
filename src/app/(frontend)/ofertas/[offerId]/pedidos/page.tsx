@@ -29,22 +29,20 @@ export default async function PainelOferta({ params }: { params: Promise<{ offer
   if (!offer)
     return <div className="w-full h-svh flex items-center justify-center">Ocorreu um erro.</div>
   return (
-    <main className="w-full p-4 md:px-8 xl:px-16 md:py-8">
-      <div className="grid gap-4">
-        <OfferSummary offer={offer} />
-        <div className="flex flex-col lg:grid grid-cols-2 gap-4">
-          <OfferTotals
-            offer={offer}
-            orders={orders.docs}
-            distributionPoints={distributionPoints.docs}
-          />
-          <OfferOrders
-            offer={offer}
-            orders={orders.docs}
-            distributionPoints={distributionPoints.docs}
-            frete={frete}
-          />
-        </div>
+    <main className="w-full p-4 md:px-8 xl:px-16 md:py-8 grid gap-4">
+      <OfferSummary offer={offer} />
+      <div className="flex flex-col lg:grid grid-cols-2 gap-4">
+        <OfferTotals
+          offer={offer}
+          orders={orders.docs}
+          distributionPoints={distributionPoints.docs}
+        />
+        <OfferOrders
+          offer={offer}
+          orders={orders.docs}
+          distributionPoints={distributionPoints.docs}
+          frete={frete}
+        />
       </div>
       {/* <div>{JSON.stringify(offer)}</div>
       <div>{JSON.stringify(orders)}</div> */}

@@ -55,8 +55,8 @@ export default function OfferTotals({ offer, orders, distributionPoints }: Offer
   return (
     <Card className="p-0">
       <CardContent className="p-4">
-        <div className="flex items-center gap-4 justify-between mb-3">
-          <h2 className="text-xl font-bold">Resumo dos pedidos</h2>
+        <div className="grid md:flex items-center gap-4 justify-between mb-3">
+          <h2 className="text-lg md:text-xl font-bold">Resumo dos pedidos</h2>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline">

@@ -190,14 +190,29 @@ export default function SingleOrder({
         </CardContent>
       </Card>
 
-      <h2 className="font-bold text-xl flex gap-3 items-center">
-        <AlertCircle />
+      <h2 className="text-destructive font-bold text-base leading-tight md:text-lg xl:text-xl flex gap-3 items-center">
+        <AlertCircle className="shrink-0 size-6" />
         Envie o comprovante do pedido no Whatsapp
       </h2>
       <p>
-        Para validar o seu pedido, pedimos que envie essa mensagem para o seu grupo de compras do
+        Para finalizar o seu pedido, pedimos que envie essa mensagem para o seu grupo de compras do
         CCRU no Whatsapp.
       </p>
+      <a target="_blank" href={whatsappUrl}>
+        <Button className="w-full cursor-pointer">
+          <MessageCircle className="fill-white text-transparent" /> Enviar mensagem no Whatsapp
+        </Button>
+      </a>
+      <Alert>
+        <TriangleAlert />
+        <AlertDescription>
+          <p className="text-xs">
+            Ao clicar no botão acima você será encaminhado/a para o aplicativo do Whatsapp com uma
+            mensagem pré-escrita contendo o comprovante do seu pedido. Se preferir, copie e cole a
+            mensagem.
+          </p>
+        </AlertDescription>
+      </Alert>
       <div className="relative">
         <Button
           variant="outline"
@@ -217,22 +232,7 @@ export default function SingleOrder({
 
         <Textarea defaultValue={orderMessage} />
       </div>
-      <a target="_blank" href={whatsappUrl}>
-        <Button className="w-full cursor-pointer">
-          <MessageCircle className="fill-white text-transparent" /> Enviar mensagem no Whatsapp
-        </Button>
-      </a>
-      <Alert>
-        <TriangleAlert />
-        <AlertDescription>
-          <p className="text-xs">
-            Ao clicar no botão acima você será encaminhado/a para o aplicativo do Whatsapp com uma
-            mensagem pré-escrita contendo o comprovante do seu pedido. Se preferir, copie e cole a
-            mensagem.
-          </p>
-        </AlertDescription>
-      </Alert>
-      <h2 className="font-bold text-xl text-center">Muito obrigado pelo seu pedido!</h2>
+      <h2 className="font-bold text-lg md:text-xl text-center">Muito obrigado pelo seu pedido!</h2>
       <Link href={`/ofertas/${offer.id}/pedidos`}>
         <Button variant={'link'} className="w-full cursor-pointer">
           Ver o painel da compra <ArrowRight />

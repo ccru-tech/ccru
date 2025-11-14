@@ -14,7 +14,7 @@ export default function OfferSummary({ offer }: OfferSummaryProps) {
   const distributionDate = new Date(offer.distributionDate)
   const ordersMaxDate = new Date(offer.ordersMaxDate)
   return (
-    <Card className="w-full p-0 overflow-hidden">
+    <Card className="p-0 overflow-hidden">
       <CardContent className="p-0">
         <div className="lg:h-20 px-4 items-center flex">
           <div className="grid lg:flex gap-4 lg:justify-between lg:items-center w-full">
@@ -44,7 +44,7 @@ export default function OfferSummary({ offer }: OfferSummaryProps) {
               </div>
             </div>
             <Link href={`/ofertas/${offer.id}`}>
-              <Button variant={'outline'} className="cursor-pointer w-full lg:w-max h-12">
+              <Button variant={'outline'} className="cursor-pointer w-full lg:w-max h-12 mb-3">
                 Conferir oferta <ArrowRight />
               </Button>
             </Link>

@@ -52,7 +52,7 @@ export default function OfferOrders({
     <Card className="p-0">
       <CardContent className="p-0">
         <div className="h-14 p-4 border-b">
-          <h2 className="font-bold text-xl mb-3">Pedidos</h2>
+          <h2 className="font-bold text-lg md:text-xl mb-3">Pedidos</h2>
         </div>
         <ScrollArea className="p-2 w-full lg:h-[calc(100svh-14rem-2px)]">
           <div className="grid gap-3 ">
