@@ -9,8 +9,8 @@ const ubuntu = Ubuntu_Sans({
 import './globals.css'
 
 export const metadata = {
-  description: 'Distribuições de cestas agroecológicas',
-  title: 'Coletivo Cru',
+  description: 'Abastecimento popular de alimentos agroecológicos.',
+  title: 'CCRU - Coletivo Consumo Rural Urbano',
 }
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
