@@ -44,7 +44,7 @@ export default buildConfig({
       process.env.NODE_ENV === 'development'
         ? {
             email: 'admin@ccru.com',
-            password: 'admin',
+            password: '',
             prefillOnly: true,
           }
         : false,
