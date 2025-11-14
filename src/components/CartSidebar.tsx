@@ -89,7 +89,7 @@ export function CartSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
           )
         })}
 
-        {cart.baskets.length === 0 && cart.singles.length === 0 && (
+        {cart.baskets.length === 0 && cart.singles.length === 0 && now < distributionDate && (
           <SidebarGroup>
             <SidebarGroupLabel>Faça o seu pedido</SidebarGroupLabel>
             <SidebarGroupContent className="px-2">

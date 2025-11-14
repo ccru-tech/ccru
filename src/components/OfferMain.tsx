@@ -5,6 +5,7 @@ import { SidebarTrigger } from './ui/sidebar'
 import { BasketCard, SinglesCard } from './ProductCards'
 import { useEffect } from 'react'
 import { useOrdersStore } from '@/lib/ordersStore'
+import { cn } from '@/lib/utils'
 
 export type OfferMainProps = { offer: Offer }
 
@@ -36,7 +37,12 @@ export default function OfferMain({ offer }: OfferMainProps) {
         </div>
       </div>
       <h2 className="text-lg font-bold mb-2">Cestas</h2>
-      <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-3 mb-8">
+      <div
+        className={cn(
+          'grid gap-4 lg:grid-cols-2 xl:grid-cols-3 mb-8',
+          now > distributionDate && 'pointer-events-none',
+        )}
+      >
         {offer.baskets?.map((basket) => {
           return <BasketCard key={basket.id} basket={basket} />
         })}
