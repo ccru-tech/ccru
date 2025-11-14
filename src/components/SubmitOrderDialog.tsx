@@ -59,7 +59,7 @@ export default function SubmitOrderDialog(props: SubmitOrderDialogProps) {
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button
-            key="xo"
+            variant={'secondary'}
             className="cursor-pointer w-full"
             disabled={cart.baskets.length === 0 && cart.singles.length === 0}
           >
@@ -80,7 +80,7 @@ export default function SubmitOrderDialog(props: SubmitOrderDialogProps) {
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
         <Button
-          key="zika"
+          variant={'secondary'}
           className="cursor-pointer w-full"
           disabled={cart.baskets.length === 0 && cart.singles.length === 0}
         >
@@ -316,17 +316,6 @@ const SubmitOrderForm = () => {
             </InputOTP>
           </div>
         </div>
-        <div className="flex gap-2 mb-3 mt-12">
-          <div className="rounded-full size-6 shrink-0 flex items-center justify-center bg-primary text-primary-foreground border text-sm">
-            3
-          </div>
-          <div>
-            <h3 className="font-semibold">Confirme o pedido.</h3>
-            <p className="text-sm text-muted-foreground">
-              Clique no botão "Completar pedido" para registrar o seu pedido.
-            </p>
-          </div>
-        </div>
         {hasOrdered !== false && (
           <Alert className="bg-red-50 border-red-200 text-red-600">
             <AlertCircleIcon className="" />
@@ -366,6 +355,7 @@ const SubmitOrderForm = () => {
             </DialogClose>
 
             <Button
+              variant={'secondary'}
               type="submit"
               className="w-full cursor-pointer shrink"
               disabled={location === '' || name === '' || phone.length < 10 || isSubmitting}
@@ -376,6 +366,7 @@ const SubmitOrderForm = () => {
         ) : (
           <DrawerFooter className="mt-4 px-0">
             <Button
+              variant={'secondary'}
               type="submit"
               className="w-full cursor-pointer"
               disabled={location === '' || name === '' || phone.length < 10 || isSubmitting}

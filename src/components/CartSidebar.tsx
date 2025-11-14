@@ -55,8 +55,8 @@ export function CartSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
                       <li key={type + item.id} className="flex gap-3 justify-between items-center">
                         <Button
                           size="icon"
-                          className="w-8 h-12 rounded-xs cursor-pointer shrink-0 bg-red-600/30 text-black hover:text-white"
-                          variant={'destructive'}
+                          className="size-8 rounded-xs cursor-pointer shrink-0"
+                          variant={'outline'}
                           onClick={() => removeItem(item.id, type as 'singles' | 'baskets')}
                         >
                           <Minus className="size-4" />
@@ -74,7 +74,7 @@ export function CartSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
                         </div>
                         <Button
                           size="icon"
-                          className="w-8 h-12 rounded-xs cursor-pointer shrink-0 bg-lime-600/30 text-black hover:text-white"
+                          className="size-8 rounded-xs cursor-pointer shrink-0"
                           variant={'default'}
                           onClick={() => addItem(item, type as 'singles' | 'baskets')}
                         >

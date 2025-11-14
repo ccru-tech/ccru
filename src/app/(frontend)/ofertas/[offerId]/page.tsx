@@ -31,7 +31,7 @@ export default async function OfferPage({ params }: { params: Promise<{ offerId:
         style={
           {
             '--sidebar-width': '24rem',
-            '--sidebar-width-mobile': 'calc(100svw-4rem)',
+            '--sidebar-width-mobile': 'calc(100svw-3rem)',
           } as React.CSSProperties
         }
       >

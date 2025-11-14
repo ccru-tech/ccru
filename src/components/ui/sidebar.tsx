@@ -51,7 +51,7 @@ function useSidebar() {
 }
 
 function SidebarProvider({
-  defaultOpen = true,
+  defaultOpen = false,
   open: openProp,
   onOpenChange: setOpenProp,
   className,
@@ -252,29 +252,34 @@ function SidebarTrigger({ className, onClick, ...props }: React.ComponentProps<t
   const { cart } = useOrdersStore()
   const totalItems = useTotalItems()
   return (
-    <Button
-      data-sidebar="trigger"
-      data-slot="sidebar-trigger"
-      variant="ghost"
-      size="icon"
+    <div
       className={cn(
-        'fixed z-100 bottom-4 left-4 size-12 rounded-full shadow border bg-foreground text-background cursor-pointer',
-        className,
+        'fixed z-10 bottom-0 left-0 w-full sm:bottom-4 sm:left-4 sm:w-auto bg-black rounded-none md:rounded-md overflow-hidden',
+        totalItems === 0 && 'bg-white',
       )}
-      onClick={(event) => {
-        onClick?.(event)
-        toggleSidebar()
-      }}
-      {...props}
     >
-      {(cart.singles.length > 0 || cart.baskets.length > 0) && (
-        <div className="absolute -top-1.5 -right-1.5 bg-red-600 flex items-center justify-center size-5 shadow rounded-full text-xs text-white">
+      <Button
+        data-sidebar="trigger"
+        data-slot="sidebar-trigger"
+        variant="secondary"
+        className={cn(
+          'w-full h-14 rounded-none md:rounded-md  shadow border-none md:border cursor-pointer flex items-center justify-center px-6!',
+          className,
+          totalItems === 0 && 'opacity-40',
+        )}
+        onClick={(event) => {
+          onClick?.(event)
+          toggleSidebar()
+        }}
+        {...props}
+      >
+        <ShoppingCart /> Carrinho
+        <div className="bg-foreground flex items-center justify-center size-6 shadow rounded-full text-xs text-white font-mono text-center">
           {totalItems}
         </div>
-      )}
-      <ShoppingCart />
-      <span className="sr-only">Toggle Sidebar</span>
-    </Button>
+        <span className="sr-only">Toggle Sidebar</span>
+      </Button>
+    </div>
   )
 }
 
