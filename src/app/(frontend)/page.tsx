@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button'
+import { Eye } from 'lucide-react'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
@@ -18,11 +19,14 @@ export default async function Home(props: HomeProps) {
         </div>
         <div className="grid gap-3">
           <Link href="/ofertas/5">
-            <Button className="cursor-pointer w-full">Conferir oferta</Button>
+            <Button className="cursor-pointer w-full">
+              <Eye />
+              Conferir oferta
+            </Button>
           </Link>
           <Link href="/sobre">
             <Button variant={'outline'} className="cursor-pointer w-full">
-              O que é isso?{' '}
+              O que é isso?
             </Button>
           </Link>
         </div>
