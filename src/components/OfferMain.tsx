@@ -20,6 +20,9 @@ export default function OfferMain({ offer }: OfferMainProps) {
   return (
     <div className="container mx-auto px-4 py-4 pb-16 bg-muted">
       <SidebarTrigger />
+      <p className="font-semibold text-destructive p-3 rounded border border-destructive bg-destructive/5 text-sm">
+        Este aplicativo está em fase de testes e esta oferta é ainda uma simulação.
+      </p>
       <img
         src="https://static.wixstatic.com/media/84a241_22441e0523ec4146a0ff9ece3cd78cda~mv2.png/v1/fill/w_298,h_298,al_c,lg_1,q_85,enc_avif,quality_auto/84a241_22441e0523ec4146a0ff9ece3cd78cda~mv2.png"
         alt="Coletivo CRU"
