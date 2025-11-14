@@ -6,6 +6,7 @@ import { BasketCard, SinglesCard } from './ProductCards'
 import { useEffect } from 'react'
 import { useOrdersStore } from '@/lib/ordersStore'
 import { cn } from '@/lib/utils'
+import Link from 'next/link'
 
 export type OfferMainProps = { offer: Offer }
 
@@ -23,11 +24,13 @@ export default function OfferMain({ offer }: OfferMainProps) {
       <p className="font-semibold text-destructive p-3 rounded border border-destructive bg-destructive/5 text-sm">
         Este aplicativo está em fase de testes e esta oferta é ainda uma simulação.
       </p>
-      <img
-        src="https://static.wixstatic.com/media/84a241_22441e0523ec4146a0ff9ece3cd78cda~mv2.png/v1/fill/w_298,h_298,al_c,lg_1,q_85,enc_avif,quality_auto/84a241_22441e0523ec4146a0ff9ece3cd78cda~mv2.png"
-        alt="Coletivo CRU"
-        className="w-24"
-      />{' '}
+      <Link href="/">
+        <img
+          src="https://static.wixstatic.com/media/84a241_22441e0523ec4146a0ff9ece3cd78cda~mv2.png/v1/fill/w_298,h_298,al_c,lg_1,q_85,enc_avif,quality_auto/84a241_22441e0523ec4146a0ff9ece3cd78cda~mv2.png"
+          alt="Coletivo CRU"
+          className="w-24"
+        />
+      </Link>
       <h1 className="font-bold text-xl">Compra coletiva</h1>
       <div className="flex gap-8 mb-8 justify-between">
         <div className="grid gap-0">
