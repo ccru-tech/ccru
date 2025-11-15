@@ -103,10 +103,7 @@ export function SinglesCard({ offer }: SinglesCardProps) {
                     <Button
                       size={'sm'}
                       onClick={() => addItem(it, 'singles')}
-                      className={cn(
-                        'cursor-pointer',
-                        cart.singles.filter((i) => i.id === it.id).length > 0 && 'opacity-70',
-                      )}
+                      className={cn('cursor-pointer')}
                     >
                       <Plus />
                     </Button>
