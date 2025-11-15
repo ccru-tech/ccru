@@ -54,7 +54,7 @@ export default function OfferOrders({
         <div className="h-14 p-4 border-b">
           <h2 className="font-bold text-lg md:text-xl mb-3">Pedidos</h2>
         </div>
-        <ScrollArea className="p-2 w-full lg:h-[calc(100svh-14rem-2px)]">
+        <ScrollArea className="p-2 w-full">
           <div className="grid gap-3 ">
             {selectedOrders.map((order) => {
               return (
