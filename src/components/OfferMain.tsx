@@ -40,10 +40,14 @@ export default function OfferMain({ offer }: OfferMainProps) {
           <AlertDialogHeader>
             <AlertDialogTitle>Este aplicativo está em fase de testes.</AlertDialogTitle>
             <AlertDialogDescription>
-              Esta oferta é ainda uma simulação.{' '}
-              <strong>Fique à vontade para realizar pedidos e clicar onde quiser</strong>. Em caso
-              de dúvidas fale com o desenvolvedor, use o grupo do CCRU Vila Prudente ou o contato
-              que está no rodapé do site.
+              <span className="mb-2 block">
+                Esta oferta é ainda uma simulação.{' '}
+                <strong>Fique à vontade para realizar pedidos e clicar onde quiser</strong>.
+              </span>
+              <span>
+                Em caso de dúvidas e sugestões use o grupo do CCRU Vila Prudente no Whatsapp ou o
+                contato que está no rodapé do site.
+              </span>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
