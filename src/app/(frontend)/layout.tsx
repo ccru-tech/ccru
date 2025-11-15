@@ -1,3 +1,4 @@
+import { GoogleAnalytics } from '@next/third-parties/google'
 import { Toaster } from '@/components/ui/sonner'
 import { Ubuntu_Sans } from 'next/font/google'
 import React from 'react'
@@ -31,6 +32,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
         </footer>
         <Toaster />
       </body>
+      <GoogleAnalytics gaId="G-3SXDGWWLZ2" />
     </html>
   )
 }
