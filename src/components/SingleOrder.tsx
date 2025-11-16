@@ -79,18 +79,24 @@ export default function SingleOrder({
     () => `https://api.whatsapp.com/send/?text=${encodeURIComponent(orderMessage)}`,
     [order, offer],
   )
-
+  const distributionDate = new Date(offer.distributionDate)
   return (
     <>
-      <Card className="p-0">
+      <div className="flex justify-between mt-2 mb-3">
+        <p className="text-sm font-semibold">Pedido #{order.id}</p>
+        <p className="text-sm">Compra de {distributionDate.toLocaleDateString('pt-BR')}</p>
+      </div>
+      <Card className="p-0 mb-8">
         <CardContent className="p-4">
-          <div className={cn('flex justify-between items-end  group')}>
-            {/* <div className="">
-              <p className="font-semibold">{order.name} </p>
-              <p className="text-muted-foreground text-sm mb-2">
+          <div className="">
+            <p className="font-semibold text-lg mb-3 border-b pb-2">
+              {order.name}{' '}
+              <span className="text-muted-foreground text-sm pl-3 font-normal">
                 {order.phone.slice(0, 2)} {order.phone.slice(2, -1)}
-              </p>
-            </div> */}
+              </span>
+            </p>
+          </div>
+          <div className={cn('flex justify-between items-end  group')}>
             <div>
               <p className="text-xs uppercase tracking-widest">Ponto de distribuição</p>
               <p className="text-lg font-semibold">Vila Prudente</p>
@@ -207,21 +213,16 @@ export default function SingleOrder({
           </Collapsible>
         </CardContent>
       </Card>
-
-      <h2 className="text-destructive font-bold text-base leading-tight md:text-lg xl:text-xl flex gap-3 items-center">
-        <AlertCircle className="shrink-0 size-6" />
-        Envie o comprovante do pedido no Whatsapp
-      </h2>
-      <p>
+      <p className="mb-5">
         Para finalizar o seu pedido, pedimos que envie essa mensagem para o seu grupo de compras do
         CCRU no Whatsapp.
       </p>
       <a target="_blank" href={whatsappUrl}>
-        <Button variant={'secondary'} className="w-full cursor-pointer">
+        <Button variant={'secondary'} className="w-full cursor-pointer mb-5">
           <MessageCircle className="fill-white text-transparent" /> Enviar mensagem no Whatsapp
         </Button>
       </a>
-      <Alert>
+      <Alert className="mb-5">
         <TriangleAlert />
         <AlertDescription>
           <p className="text-xs">
@@ -231,7 +232,7 @@ export default function SingleOrder({
           </p>
         </AlertDescription>
       </Alert>
-      <div className="relative">
+      <div className="relative mb-5">
         <Button
           variant="outline"
           className="absolute top-2 right-2 z-10 cursor-pointer"
@@ -250,9 +251,8 @@ export default function SingleOrder({
 
         <Textarea defaultValue={orderMessage} />
       </div>
-      <h2 className="font-bold text-lg md:text-xl text-center">Muito obrigado pelo seu pedido!</h2>
       <Link href={`/ofertas/${offer.id}/pedidos`}>
-        <Button variant={'link'} className="w-full cursor-pointer">
+        <Button variant={'link'} className="cursor-pointer">
           Ver o painel da compra <ArrowRight />
         </Button>
       </Link>

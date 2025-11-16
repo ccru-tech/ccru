@@ -28,8 +28,8 @@ export default async function Pedido({
     )
   return (
     <div className="w-full min-h-svh flex items-center justify-center p-4">
-      <div className=" w-full max-w-lg grid gap-5">
-        <img src="/logo.avif" alt="Coletivo CRU" className="w-16" />
+      <div className=" w-full max-w-lg">
+        <img src="/logo.avif" alt="Coletivo CRU" className="w-12" />
         <SingleOrder order={order} offer={offer} distributionPoints={distributionPoints.docs} />
       </div>
     </div>
