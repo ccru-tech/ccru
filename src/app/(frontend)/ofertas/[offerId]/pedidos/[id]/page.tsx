@@ -29,11 +29,7 @@ export default async function Pedido({
   return (
     <div className="w-full min-h-svh flex items-center justify-center p-4">
       <div className=" w-full max-w-lg grid gap-5">
-        <img
-          src="https://static.wixstatic.com/media/84a241_22441e0523ec4146a0ff9ece3cd78cda~mv2.png/v1/fill/w_298,h_298,al_c,lg_1,q_85,enc_avif,quality_auto/84a241_22441e0523ec4146a0ff9ece3cd78cda~mv2.png"
-          alt="Coletivo CRU"
-          className="w-16"
-        />
+        <img src="/logo.avif" alt="Coletivo CRU" className="w-16" />
         <SingleOrder order={order} offer={offer} distributionPoints={distributionPoints.docs} />
       </div>
     </div>
