@@ -80,10 +80,17 @@ export default function SingleOrder({
     [order, offer],
   )
   const distributionDate = new Date(offer.distributionDate)
+  const createdAt = new Date(order.createdAt)
   return (
     <>
-      <div className="flex justify-between mt-2 mb-3">
-        <p className="text-sm font-semibold">Pedido #{order.id}</p>
+      <div className="flex justify-between items-end mt-2 mb-3">
+        <p className="text-sm font-semibold">
+          Pedido #{order.id}
+          <br />
+          <span className="text-xs text-muted-foreground font-normal">
+            {createdAt.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}
+          </span>
+        </p>
         <p className="text-sm">Compra de {distributionDate.toLocaleDateString('pt-BR')}</p>
       </div>
       <Card className="p-0 mb-8">
