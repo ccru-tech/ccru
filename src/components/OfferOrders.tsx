@@ -60,7 +60,7 @@ export default function OfferOrders({
               return (
                 <Collapsible key={'order_offer_' + order.id} className="border rounded-md">
                   <CollapsibleTrigger asChild>
-                    <div className="grid cursor-pointer group p-2 border-b">
+                    <div className="grid cursor-pointer group p-2">
                       <div className="flex gap-3 justify-between ">
                         <div className="flex items-center gap-2 group-hover:text-primary">
                           <Badge variant={'outline'} className="h-8 w-20 text-sm">
@@ -100,9 +100,9 @@ export default function OfferOrders({
                     <Table>
                       <TableHeader>
                         <TableRow>
+                          <TableHead className="text-right">Qtd</TableHead>
                           <TableHead>Item</TableHead>
                           <TableHead>Tipo</TableHead>
-                          <TableHead className="text-right">Qtd</TableHead>
                           <TableHead className="text-right">Valor</TableHead>
                         </TableRow>
                       </TableHeader>
@@ -110,13 +110,13 @@ export default function OfferOrders({
                         {orderedItems(order).baskets.map((basket) => {
                           return (
                             <TableRow key={'offertotalbasket' + basket.id}>
+                              <TableCell className="text-right">{basket.multiplier}</TableCell>
                               <TableCell className="whitespace-break-spaces w-1/3 sm:w-auto">
                                 Cesta {basket.title}
                               </TableCell>
                               <TableCell>
                                 <Badge variant={'outline'}>Cesta</Badge>
                               </TableCell>
-                              <TableCell className="text-right">{basket.multiplier}</TableCell>
                               <TableCell className="text-right">
                                 {new Intl.NumberFormat('pt-BR', {
                                   style: 'currency',
@@ -129,13 +129,13 @@ export default function OfferOrders({
                         {orderedItems(order).singles.map((single) => {
                           return (
                             <TableRow key={'offertotalsingle' + single.id}>
+                              <TableCell className="text-right">{single.multiplier}</TableCell>
                               <TableCell className="whitespace-break-spaces w-1/3 sm:w-auto">
                                 {single.item.title}
                               </TableCell>
                               <TableCell>
                                 <Badge variant={'outline'}>Avulso</Badge>
                               </TableCell>
-                              <TableCell className="text-right">{single.multiplier}</TableCell>
                               <TableCell className="text-right">
                                 {new Intl.NumberFormat('pt-BR', {
                                   style: 'currency',

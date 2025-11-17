@@ -8,6 +8,8 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuItem,
   SidebarRail,
 } from '@/components/ui/sidebar'
 import { useOrdersStore, useTotalItems } from '@/lib/ordersStore'
@@ -39,7 +41,7 @@ export function CartSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
   }, [offer])
   return (
     <Sidebar {...props}>
-      <SidebarContent className="pt-12">
+      <SidebarContent className="">
         {['baskets', 'singles'].map((type) => {
           const collection = cart[type as 'baskets' | 'singles']
           if (collection.length === 0) return null
@@ -55,7 +57,7 @@ export function CartSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
                       <li key={type + item.id} className="flex gap-3 justify-between items-center">
                         <Button
                           size="icon"
-                          className="size-8 rounded-xs cursor-pointer shrink-0"
+                          className="size-8 cursor-pointer shrink-0"
                           variant={'outline'}
                           onClick={() => removeItem(item.id, type as 'singles' | 'baskets')}
                         >
@@ -74,7 +76,7 @@ export function CartSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
                         </div>
                         <Button
                           size="icon"
-                          className="size-8 rounded-xs cursor-pointer shrink-0"
+                          className="size-8 cursor-pointer shrink-0"
                           variant={'default'}
                           onClick={() => addItem(item, type as 'singles' | 'baskets')}
                         >

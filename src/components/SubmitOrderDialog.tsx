@@ -317,7 +317,7 @@ const SubmitOrderForm = () => {
           </div>
         </div>
         {hasOrdered !== false && (
-          <Alert className="bg-red-50 border-red-200 text-red-600">
+          <Alert className="bg-red-50 border-red-200 text-red-600 mt-5">
             <AlertCircleIcon className="" />
             <AlertTitle className="text-red-600">
               Você já realizou um pedido para essa oferta.
