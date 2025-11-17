@@ -91,9 +91,9 @@ export default function SingleOrder({
           <div className="">
             <p className="font-semibold text-lg mb-3 border-b pb-2">
               {order.name}{' '}
-              <span className="text-muted-foreground text-sm pl-3 font-normal">
+              {/* <span className="text-muted-foreground text-sm pl-3 font-normal">
                 {order.phone.slice(0, 2)} {order.phone.slice(2, -1)}
-              </span>
+              </span> */}
             </p>
           </div>
           <div className={cn('flex justify-between items-end  group')}>

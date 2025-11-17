@@ -82,10 +82,10 @@ export default function OfferOrders({
                             )}
                           </Badge>
                           <p className="font-semibold">{order.name} </p>
-                          <p className="flex gap-2 items-center font-light text-muted-foreground text-xs">
+                          {/* <p className="flex gap-2 items-center font-light text-muted-foreground text-xs">
                             <PhoneCall className="size-3" />
                             {order.phone.slice(0, 2)} {order.phone.slice(2, -1)}
-                          </p>
+                          </p> */}
                         </div>
                         <Badge>
                           {typeof order.distributionPoint === 'string' ||
