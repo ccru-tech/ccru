@@ -174,8 +174,8 @@ const SubmitOrderForm = () => {
               <TableRow className="bg-muted">
                 <TableHead>Item</TableHead>
                 <TableHead className="text-right">Qtd</TableHead>
-                <TableHead className="text-right">Valor por unid.</TableHead>
-                <TableHead className="text-right">Valor</TableHead>
+                <TableHead className="text-right">Preço por unid.</TableHead>
+                <TableHead className="text-right">Preço</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

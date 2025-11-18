@@ -3,7 +3,7 @@ import { headers as getHeaders } from 'next/headers.js'
 import { redirect } from 'next/navigation'
 import { getPayload } from 'payload'
 
-import LoginCard from './LoginCard'
+import RegisterCard from './RegisterCard'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 
@@ -15,14 +15,5 @@ export default async function LoginPage(props: LoginPageProps) {
   const url = headers.get('referer')
   const { user } = await payload.auth({ headers })
   if (user) redirect('/painel')
-  return (
-    <div className="flex flex-col gap-3">
-      <LoginCard />
-      <Link href="/auth/register">
-        <Button variant={'ghost'} className="w-full">
-          Não tem uma conta?
-        </Button>
-      </Link>
-    </div>
-  )
+  return <RegisterCard />
 }

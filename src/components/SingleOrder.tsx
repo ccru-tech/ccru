@@ -140,7 +140,7 @@ export default function SingleOrder({
                     <TableHead>Item</TableHead>
                     <TableHead>Tipo</TableHead>
                     <TableHead className="text-right">Qtd</TableHead>
-                    <TableHead className="text-right">Valor</TableHead>
+                    <TableHead className="text-right">Preço</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
