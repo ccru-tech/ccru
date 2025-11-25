@@ -10,11 +10,7 @@ export default async function Home(props: HomeProps) {
     <div className="min-h-svh w-full flex items-center justify-center">
       <div className="text-center">
         <div className="mb-8">
-          <img
-            src="https://static.wixstatic.com/media/84a241_22441e0523ec4146a0ff9ece3cd78cda~mv2.png/v1/fill/w_298,h_298,al_c,lg_1,q_85,enc_avif,quality_auto/84a241_22441e0523ec4146a0ff9ece3cd78cda~mv2.png"
-            alt="Coletivo CRU"
-            className="w-48 mx-auto"
-          />
+          <img src="/logo.avif" alt="Coletivo CRU" className="w-48 mx-auto" />
           <p className="text-muted-foreground">Coletivo de Consumo Rural e Urbano</p>
         </div>
         <div className="grid gap-3">

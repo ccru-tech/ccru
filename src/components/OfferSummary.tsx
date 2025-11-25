@@ -19,11 +19,7 @@ export default function OfferSummary({ offer }: OfferSummaryProps) {
         <div className="lg:h-20 items-center flex">
           <div className="grid lg:flex gap-4 lg:justify-between lg:items-center w-full">
             <div className="grid gap-4 lg:flex lg:gap-12 lg:items-center">
-              <img
-                src="https://static.wixstatic.com/media/84a241_22441e0523ec4146a0ff9ece3cd78cda~mv2.png/v1/fill/w_298,h_298,al_c,lg_1,q_85,enc_avif,quality_auto/84a241_22441e0523ec4146a0ff9ece3cd78cda~mv2.png"
-                alt="Coletivo CRU"
-                className="h-20"
-              />
+              <img src="/logo.avif" alt="Coletivo CRU" className="h-20" />
               <div>
                 <h3 className="uppercase text-[10px] text-muted-foreground mb-0.5">
                   <span>Entrega do dia</span>

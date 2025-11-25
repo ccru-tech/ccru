@@ -1,5 +1,6 @@
 'use client'
 
+import { Button } from '@/components/ui/button'
 import {
   Card,
   CardAction,
@@ -8,20 +9,11 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table'
-import { Button } from '@/components/ui/button'
-import { Plus } from 'lucide-react'
-import { Offer, Product, Unit } from '@/payload-types'
+import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table'
 import { useOrdersStore } from '@/lib/ordersStore'
+import { Offer, Product, Unit } from '@/payload-types'
+import { Plus } from 'lucide-react'
 
-import { findIndex } from 'lodash'
 import { cn } from '@/lib/utils'
 
 export type BasketCardProps = { basket: any /* Offer.baskets */ }
@@ -41,10 +33,7 @@ export function BasketCard({ basket }: BasketCardProps) {
         </CardDescription>
         <CardAction>
           <Button
-            className={cn(
-              'cursor-pointer',
-              cart.baskets.filter((i) => i.id === basket.id).length > 0 && 'opacity-70',
-            )}
+            className={cn('cursor-pointer active:bg-lime-950')}
             onClick={() => addItem(basket, 'baskets')}
           >
             <Plus /> Adicionar

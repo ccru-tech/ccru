@@ -174,8 +174,8 @@ const SubmitOrderForm = () => {
               <TableRow className="bg-muted">
                 <TableHead>Item</TableHead>
                 <TableHead className="text-right">Qtd</TableHead>
-                <TableHead className="text-right">Valor por unid.</TableHead>
-                <TableHead className="text-right">Valor</TableHead>
+                <TableHead className="text-right">Preço por unid.</TableHead>
+                <TableHead className="text-right">Preço</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -317,7 +317,7 @@ const SubmitOrderForm = () => {
           </div>
         </div>
         {hasOrdered !== false && (
-          <Alert className="bg-red-50 border-red-200 text-red-600">
+          <Alert className="bg-red-50 border-red-200 text-red-600 mt-5">
             <AlertCircleIcon className="" />
             <AlertTitle className="text-red-600">
               Você já realizou um pedido para essa oferta.

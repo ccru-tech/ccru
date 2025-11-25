@@ -41,13 +41,12 @@ export default function OfferMain({ offer }: OfferMainProps) {
             <AlertDialogTitle>Este aplicativo está em fase de testes.</AlertDialogTitle>
             <AlertDialogDescription>
               <span className="mb-2 block">
-                Esta oferta é ainda uma simulação.{' '}
-                <strong>Fique à vontade para realizar pedidos e clicar onde quiser</strong>.
+                <strong>Esta oferta, com data de entrega para o sábado 29/11, está ativa!</strong>.
+                É o primeiro teste da nossa plataforma, válido somente para o grupo da Vila
+                Prudente. Não se esqueça de enviar a mensagem no Whatsapp no fim do processo para
+                confirmar a compra.
               </span>
-              <span>
-                Em caso de dúvidas e sugestões use o grupo do CCRU Vila Prudente no Whatsapp ou o
-                contato que está no rodapé do site.
-              </span>
+              <span>Em caso de dúvidas e sugestões use o grupo do CCRU Vila Prudente.</span>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -59,11 +58,7 @@ export default function OfferMain({ offer }: OfferMainProps) {
         <SidebarTrigger />
         <div className="grid  mb-8">
           <Link href="/" className="w-16 sm:w-24 block">
-            <img
-              src="https://static.wixstatic.com/media/84a241_22441e0523ec4146a0ff9ece3cd78cda~mv2.png/v1/fill/w_298,h_298,al_c,lg_1,q_85,enc_avif,quality_auto/84a241_22441e0523ec4146a0ff9ece3cd78cda~mv2.png"
-              alt="Coletivo CRU"
-              className="w-full"
-            />
+            <img src="/logo.avif" alt="Coletivo CRU" className="w-full" />
           </Link>
           <div className="w-full">
             <h1 className="font-bold text-2xl mb-2">Compra coletiva</h1>

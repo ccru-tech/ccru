@@ -79,18 +79,18 @@ export const Offers: CollectionConfig = {
             plural: 'Itens',
           },
           minRows: 1,
-          admin: {
-            components: {
-              RowLabel: {
-                path: '@/collections/Offers/components/row-label#ItemRowLabel',
-                clientProps: {
-                  defaultLabel: 'Item',
-                  path: 'item.title',
-                  relationTo: 'products',
-                },
-              },
-            },
-          },
+          // admin: {
+          //   components: {
+          //     RowLabel: {
+          //       path: '@/collections/Offers/components/row-label#ItemRowLabel',
+          //       clientProps: {
+          //         defaultLabel: 'Item',
+          //         path: 'item.title',
+          //         relationTo: 'products',
+          //       },
+          //     },
+          //   },
+          // },
           fields: [
             {
               type: 'row',
@@ -156,18 +156,18 @@ export const Offers: CollectionConfig = {
         plural: 'Avulsos',
       },
       minRows: 1,
-      admin: {
-        components: {
-          RowLabel: {
-            path: '@/collections/Offers/components/row-label#ItemRowLabel',
-            clientProps: {
-              defaultLabel: 'Item',
-              path: 'item.title',
-              relationTo: 'products',
-            },
-          },
-        },
-      },
+      // admin: {
+      //   components: {
+      //     RowLabel: {
+      //       path: '@/collections/Offers/components/row-label#ItemRowLabel',
+      //       clientProps: {
+      //         defaultLabel: 'Item',
+      //         path: 'item.title',
+      //         relationTo: 'products',
+      //       },
+      //     },
+      //   },
+      // },
       fields: [
         {
           type: 'row',

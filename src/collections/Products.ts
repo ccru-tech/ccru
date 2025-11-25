@@ -15,6 +15,6 @@ export const Products: CollectionConfig = {
       relationTo: 'units',
     },
     { name: 'defaultQuantity', label: 'Quantidade Padrão', type: 'number' },
-    { name: 'defaultPrice', label: 'Valor Padrão', type: 'number' },
+    { name: 'defaultPrice', label: 'Preço Padrão', type: 'number' },
   ],
 }
