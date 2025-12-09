@@ -66,8 +66,5 @@ export default buildConfig({
     payloadCloudPlugin(),
     // storage-adapter-placeholder
   ],
-  i18n: {
-    supportedLanguages: { pt },
-    fallbackLanguage: 'pt', // default
-  },
+
 })
