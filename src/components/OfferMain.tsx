@@ -41,8 +41,11 @@ export default function OfferMain({ offer }: OfferMainProps) {
             <AlertDialogTitle>Este aplicativo está em fase de testes.</AlertDialogTitle>
             <AlertDialogDescription>
               <span className="mb-2 block">
-                <strong>Esta oferta, com data de entrega para o sábado 29/11, está ativa!</strong>.
-                É o primeiro teste da nossa plataforma, válido somente para o grupo da Vila
+                <strong>
+                  A oferta com data de entrega para o sábado{' '}
+                  <span className="text-red-600">13/12</span>, está ativa!
+                </strong>
+                <br /> É o segundo teste da nossa plataforma, válido somente para o grupo da Vila
                 Prudente. Não se esqueça de enviar a mensagem no Whatsapp no fim do processo para
                 confirmar a compra.
               </span>
