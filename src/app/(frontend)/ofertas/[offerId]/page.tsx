@@ -24,7 +24,7 @@ export default async function OfferPage({ params }: { params: Promise<{ offerId:
     )
   const now = new Date()
   const distributionDate = new Date(offer.distributionDate)
-  const ordersMaxDate = new Date(offer.ordersMaxDate)
+  const canEdit = Boolean(user) || now < distributionDate
   return (
     <>
       <SidebarProvider
@@ -38,10 +38,10 @@ export default async function OfferPage({ params }: { params: Promise<{ offerId:
         <SidebarInset>
           <main className={cn('min-h-svh w-full')}>
             <RefreshRouteOnSave />
-            <OfferMain offer={offer} />
+            <OfferMain offer={offer} canEdit={canEdit} />
           </main>
         </SidebarInset>
-        <CartSidebar side="right" />
+        <CartSidebar side="right" canEdit={canEdit} />
       </SidebarProvider>
     </>
   )

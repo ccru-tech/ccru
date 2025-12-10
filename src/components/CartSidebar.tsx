@@ -20,7 +20,7 @@ import Link from 'next/link'
 
 export function CartSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { cart, removeItem, addItem, offer } = useOrdersStore()
-
+  const { canEdit } = props
   const totalItems = useTotalItems()
   const total = React.useMemo(() => {
     let result = 0
@@ -91,7 +91,7 @@ export function CartSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
           )
         })}
 
-        {cart.baskets.length === 0 && cart.singles.length === 0 && now < distributionDate && (
+        {cart.baskets.length === 0 && cart.singles.length === 0 && !canEdit && (
           <SidebarGroup>
             <SidebarGroupLabel>Faça o seu pedido</SidebarGroupLabel>
             <SidebarGroupContent className="px-2">
@@ -110,7 +110,7 @@ export function CartSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
                 currency: 'BRL',
               }).format(total)}
             </p>
-            {now > distributionDate ? (
+            {!canEdit ? (
               <div className="grid gap-3">
                 <p>Oferta já encerrada. </p>
                 <Link href={`/ofertas/${offer?.id}/pedidos`}>
