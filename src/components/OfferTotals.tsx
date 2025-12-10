@@ -95,8 +95,9 @@ export default function OfferTotals({ offer, orders, distributionPoints }: Offer
             <TableRow>
               <TableHead>Item</TableHead>
               <TableHead>Tipo</TableHead>
+              <TableHead className="text-right">R$/un</TableHead>
               <TableHead className="text-right">Qtd</TableHead>
-              <TableHead className="text-right">Preço</TableHead>
+              <TableHead className="text-right">R$</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -106,6 +107,12 @@ export default function OfferTotals({ offer, orders, distributionPoints }: Offer
                   <TableCell>Cesta {basket.title}</TableCell>
                   <TableCell>
                     <Badge variant={'outline'}>Cesta</Badge>
+                  </TableCell>
+                  <TableCell className="text-right text-muted-foreground hidden sm:table-cell">
+                    {new Intl.NumberFormat('pt-BR', {
+                      style: 'currency',
+                      currency: 'BRL',
+                    }).format(basket.price)}
                   </TableCell>
                   <TableCell className="text-right">{basket.multiplier}</TableCell>
                   <TableCell className="text-right">
@@ -126,20 +133,26 @@ export default function OfferTotals({ offer, orders, distributionPoints }: Offer
                   <TableCell>
                     <Badge variant={'outline'}>Avulso</Badge>
                   </TableCell>
-                  <TableCell className="text-right">{single.multiplier}</TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-right text-muted-foreground hidden sm:table-cell">
                     {new Intl.NumberFormat('pt-BR', {
                       style: 'currency',
                       currency: 'BRL',
                     }).format(single.price)}
                   </TableCell>
+                  <TableCell className="text-right">{single.multiplier}</TableCell>
+                  <TableCell className="text-right">
+                    {new Intl.NumberFormat('pt-BR', {
+                      style: 'currency',
+                      currency: 'BRL',
+                    }).format(single.price * single.multiplier)}
+                  </TableCell>
                 </TableRow>
               )
             })}
           </TableBody>
-          <TableFooter>
+          <TableFooter className="bg-muted border-t-primary">
             <TableRow>
-              <TableCell colSpan={3}>Total</TableCell>
+              <TableCell colSpan={4}>Total</TableCell>
               <TableCell className="text-right">
                 {new Intl.NumberFormat('pt-BR', {
                   style: 'currency',
@@ -147,6 +160,35 @@ export default function OfferTotals({ offer, orders, distributionPoints }: Offer
                 }).format(
                   sum(orderedItems.baskets.map((basket) => basket.price * basket.multiplier)) +
                     sum(orderedItems.singles.map((single) => single.price * single.multiplier)),
+                )}
+              </TableCell>
+            </TableRow>
+            <TableRow className="text-muted-foreground">
+              <TableCell colSpan={2}>Frete</TableCell>
+              <TableCell className="text-right">
+                {new Intl.NumberFormat('pt-BR', {
+                  style: 'currency',
+                  currency: 'BRL',
+                }).format(5)}
+              </TableCell>
+              <TableCell className="text-right">{orders.length}</TableCell>
+              <TableCell className="text-right">
+                {new Intl.NumberFormat('pt-BR', {
+                  style: 'currency',
+                  currency: 'BRL',
+                }).format(orders.length * 5)}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell colSpan={4}>Total com frete</TableCell>
+              <TableCell className="text-right">
+                {new Intl.NumberFormat('pt-BR', {
+                  style: 'currency',
+                  currency: 'BRL',
+                }).format(
+                  sum(orderedItems.baskets.map((basket) => basket.price * basket.multiplier)) +
+                    sum(orderedItems.singles.map((single) => single.price * single.multiplier)) +
+                    orders.length * 5,
                 )}
               </TableCell>
             </TableRow>

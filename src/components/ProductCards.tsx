@@ -23,7 +23,7 @@ export function BasketCard({ basket }: BasketCardProps) {
 
   return (
     <Card className="p-0">
-      <CardHeader className="p-3 md:p-4 !pb-0">
+      <CardHeader className="p-3 md:p-4 pb-0">
         <CardTitle>Cesta {basket.title}</CardTitle>
         <CardDescription>
           {new Intl.NumberFormat('pt-BR', {
@@ -40,7 +40,7 @@ export function BasketCard({ basket }: BasketCardProps) {
           </Button>
         </CardAction>
       </CardHeader>
-      <CardContent className="p-3 md:p-4 !pt-0">
+      <CardContent className="p-3 md:p-4 pt-0">
         <Table>
           <TableBody>
             {basket.items?.map((it: any) => {
@@ -71,10 +71,13 @@ export function SinglesCard({ offer }: SinglesCardProps) {
       <CardContent className="p-3 md:p-4">
         <Table>
           <TableBody>
-            {offer.singles?.map((it) => {
+            {offer.singles?.map((it, i) => {
               const item = it.item as Product
               return (
-                <TableRow key={item.id} className="odd:bg-primary/10 hover:bg-primary/20">
+                <TableRow
+                  key={i + offer.id + item.title + item.id}
+                  className="odd:bg-primary/10 hover:bg-primary/20"
+                >
                   <TableCell className="font-medium w-1/2  lg:w-max whitespace-normal ">
                     {item.title}
                   </TableCell>

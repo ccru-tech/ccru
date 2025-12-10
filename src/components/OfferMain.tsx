@@ -1,29 +1,26 @@
 'use client'
 
-import { Offer } from '@/payload-types'
-import { SidebarTrigger } from './ui/sidebar'
-import { BasketCard, SinglesCard } from './ProductCards'
-import { useEffect, useState } from 'react'
-import { useOrdersStore } from '@/lib/ordersStore'
-import { cn } from '@/lib/utils'
-import Link from 'next/link'
-import { Card, CardContent } from './ui/card'
-import { toast } from 'sonner'
 import {
   AlertDialog,
   AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
+import { useOrdersStore } from '@/lib/ordersStore'
+import { cn } from '@/lib/utils'
+import { Offer } from '@/payload-types'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import { BasketCard, SinglesCard } from './ProductCards'
+import { Card, CardContent } from './ui/card'
+import { SidebarTrigger } from './ui/sidebar'
 
-export type OfferMainProps = { offer: Offer }
+export type OfferMainProps = { offer: Offer; canEdit: boolean }
 
-export default function OfferMain({ offer }: OfferMainProps) {
+export default function OfferMain({ offer, canEdit }: OfferMainProps) {
   const [alert, setAlert] = useState(true)
   const { setOffer } = useOrdersStore()
   useEffect(() => {
@@ -85,7 +82,7 @@ export default function OfferMain({ offer }: OfferMainProps) {
         <div
           className={cn(
             'grid gap-4 lg:grid-cols-2 xl:grid-cols-3 mb-8',
-            now > distributionDate && 'pointer-events-none',
+            !canEdit && 'pointer-events-none',
           )}
         >
           {offer.baskets?.map((basket) => {
