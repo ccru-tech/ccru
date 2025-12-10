@@ -95,7 +95,7 @@ export default function OfferTotals({ offer, orders, distributionPoints }: Offer
             <TableRow>
               <TableHead>Item</TableHead>
               <TableHead>Tipo</TableHead>
-              <TableHead className="text-right">R$/un</TableHead>
+              <TableHead className="text-right hidden sm:table-cell">R$/un</TableHead>
               <TableHead className="text-right">Qtd</TableHead>
               <TableHead className="text-right">R$</TableHead>
             </TableRow>
@@ -164,14 +164,19 @@ export default function OfferTotals({ offer, orders, distributionPoints }: Offer
               </TableCell>
             </TableRow>
             <TableRow className="text-muted-foreground">
-              <TableCell colSpan={2}>Frete</TableCell>
-              <TableCell className="text-right">
+              <TableCell colSpan={4} className="sm:hidden">
+                Frete
+              </TableCell>
+              <TableCell colSpan={2} className="hidden sm:table-cell">
+                Frete
+              </TableCell>
+              <TableCell className="text-right hidden sm:table-cell">
                 {new Intl.NumberFormat('pt-BR', {
                   style: 'currency',
                   currency: 'BRL',
                 }).format(5)}
               </TableCell>
-              <TableCell className="text-right">{orders.length}</TableCell>
+              <TableCell className="text-right hidden sm:table-cell">{orders.length}</TableCell>
               <TableCell className="text-right">
                 {new Intl.NumberFormat('pt-BR', {
                   style: 'currency',
