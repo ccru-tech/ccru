@@ -21,7 +21,7 @@ import { SidebarTrigger } from './ui/sidebar'
 export type OfferMainProps = { offer: Offer; canEdit: boolean }
 
 export default function OfferMain({ offer, canEdit }: OfferMainProps) {
-  const [alert, setAlert] = useState(true)
+  const [alert, setAlert] = useState(false)
   const { setOffer } = useOrdersStore()
   useEffect(() => {
     if (offer) setOffer(offer)
