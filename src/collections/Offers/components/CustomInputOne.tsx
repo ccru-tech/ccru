@@ -12,7 +12,7 @@ export const CustomNumberFieldQuantity: NumberFieldClientComponent = (props) => 
   useEffect(() => {
     if (!value && siblingValue) {
       try {
-        fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/products/${siblingValue}`)
+        fetch(`/api/products/${siblingValue}`)
           .then((res) => res.json())
           .then((res) => {
             setValue(res.defaultQuantity)
