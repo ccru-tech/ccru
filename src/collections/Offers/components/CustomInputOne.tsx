@@ -56,7 +56,7 @@ export const CustomRelationshipFieldUnit: RelationshipFieldClientComponent = (pr
   useEffect(() => {
     if (!value && siblingValue) {
       try {
-        fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/products/${siblingValue}`)
+        fetch(`/api/products/${siblingValue}`)
           .then((res) => res.json())
           .then((res) => {
             if (!!res.defaultUnit?.id) setValue(res.defaultUnit.id)
