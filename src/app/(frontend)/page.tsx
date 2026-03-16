@@ -14,7 +14,7 @@ export default async function Home(props: HomeProps) {
           <p className="text-muted-foreground">Coletivo de Consumo Rural e Urbano</p>
         </div>
         <div className="grid gap-3">
-          <Link href="/ofertas/8">
+          <Link href="/ofertas/10">
             <Button className="cursor-pointer w-full">
               <Eye />
               Conferir oferta
